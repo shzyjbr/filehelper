@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.MainController">
+   <children>
+      <BorderPane fx:id="leftPane" layoutY="151.0" maxWidth="200.0" prefWidth="200.0" styleClass="left-pane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <AnchorPane prefHeight="40.0" styleClass="logo-pane">
+               <children>
+                  <ToggleButton mnemonicParsing="false" styleClass="logo-icon" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <graphic>
+                        <Region prefHeight="60.0" prefWidth="60.0" styleClass="logo" />
+                     </graphic>
+                  </ToggleButton>
+                  <Label alignment="CENTER" styleClass="logo-label" text="传输助手" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <ListView fx:id="devicesList" prefHeight="618.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+         <bottom>
+            <AnchorPane maxHeight="54.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <StackPane layoutX="7.0" layoutY="7.0" prefHeight="40.0" prefWidth="40.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+                     <children>
+                        <Region prefHeight="200.0" prefWidth="200.0" styleClass="svg-btn" />
+                     </children>
+                     <styleClass>
+                        <String fx:value="svg-btn" />
+                        <String fx:value="setting-btn" />
+                     </styleClass>
+                  </StackPane>
+               </children>
+            </AnchorPane>
+         </bottom>
+      </BorderPane>
+      <HBox alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="200.0" spacing="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane onMouseReleased="#onMiniAction" prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="200.0" prefWidth="200.0" styleClass="svg-btn" />
+               </children>
+               <styleClass>
+                  <String fx:value="svg-btn" />
+                  <String fx:value="mini-btn" />
+               </styleClass>
+            </StackPane>
+            <ToggleButton mnemonicParsing="false" onMouseReleased="#onFullAction" styleClass="full-btn">
+               <graphic>
+                  <Region prefHeight="200.0" prefWidth="200.0" styleClass="svg-btn" />
+               </graphic>
+            </ToggleButton>
+            <StackPane onMouseReleased="#onCloseAction" prefHeight="150.0" prefWidth="200.0">
+               <children>
+                  <Region prefHeight="200.0" prefWidth="200.0" styleClass="svg-btn" />
+               </children>
+               <styleClass>
+                  <String fx:value="svg-btn" />
+                  <String fx:value="close-btn" />
+               </styleClass>
+               <HBox.margin>
+                  <Insets left="5.0" right="10.0" />
+               </HBox.margin>
+            </StackPane>
+         </children>
+      </HBox>
+      <BorderPane layoutX="200.0" layoutY="40.0" prefHeight="561.0" prefWidth="549.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+         <center>
+            <fx:include source="chatbox.xml.fxml" />
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>
