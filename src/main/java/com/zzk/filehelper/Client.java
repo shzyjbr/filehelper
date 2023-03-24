@@ -75,6 +75,7 @@ public class Client {
             socket.send(packet);
             socket.close();
         } catch (IOException e) {
+            //测试
             throw new RuntimeException(e);
         }
 

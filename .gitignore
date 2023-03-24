@@ -31,3 +31,11 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+.gitignore
+mvnw
+mvnw.cmd
+.mvn
+.mvn/**
+
