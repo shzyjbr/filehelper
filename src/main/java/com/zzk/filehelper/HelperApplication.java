@@ -1,6 +1,8 @@
 package com.zzk.filehelper;
 
+import com.zzk.filehelper.state.SceneManager;
 import javafx.application.Application;
+import javafx.collections.ObservableMap;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,25 +20,30 @@ public class HelperApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(getClass().getResource("/fxml/main.fxml"));
         Parent root =fxmlLoader.load();
+        SceneManager.instance.setMainPane(root);
         scene = new Scene(root, null);
         primaryStage.setScene(scene);
-        // primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setFullScreenExitHint("");
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("/img/logo.png")).toExternalForm()));
         primaryStage.setTitle("文件传输助手");
         primaryStage.show();
 
-        scene.setOnMousePressed(event -> {
-            offsetX = event.getSceneX();
-            offsetY = event.getSceneY();
-        });
+        // scene.setOnMousePressed(event -> {
+        //     offsetX = event.getSceneX();
+        //     offsetY = event.getSceneY();
+        // });
+        //
+        // scene.setOnMouseDragged(event -> {
+        //     primaryStage.setX(event.getScreenX()-offsetX);
+        //     primaryStage.setY(event.getScreenY()-offsetY);
+        // });
 
-        scene.setOnMouseDragged(event -> {
-            primaryStage.setX(event.getScreenX()-offsetX);
-            primaryStage.setY(event.getScreenY()-offsetY);
-        });
+    // //    获取发送Pane
+    //     ObservableMap<String, Object> namespace = fxmlLoader.getNamespace();
+    //     // namespace.get()
     }
 
     @Override
