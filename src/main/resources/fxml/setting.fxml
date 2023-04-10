@@ -1,16 +1,208 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER" stylesheets="@../css/setting.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="188.0" layoutY="140.0" prefHeight="68.0" prefWidth="74.0" text="设置">
-         <font>
-            <Font size="27.0" />
-         </font>
-      </Label>
+          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="550.0" style="-fx-background-color: white;">
+              <children>
+                  <HBox alignment="CENTER">
+                      <children>
+                          <Label text="设置">
+                              <font>
+                                  <Font size="23.0" />
+                              </font>
+                          </Label>
+                      </children>
+                      <opaqueInsets>
+                          <Insets />
+                      </opaqueInsets>
+                      <VBox.margin>
+                          <Insets bottom="20.0" top="20.0" />
+                      </VBox.margin>
+                  </HBox>
+                  <VBox alignment="CENTER" styleClass="general-setting-bg">
+                      <children>
+                          <HBox>
+                              <children>
+                                  <Label text="通用">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                      <HBox.margin>
+                                          <Insets left="10.0" top="10.0" />
+                                      </HBox.margin>
+                                  </Label>
+                              </children>
+                          </HBox>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="主题" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="语言" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="关闭：最小化到系统托盘" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="开机自启动" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="静默自启：自启动托盘服务" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                      </children>
+                  </VBox>
+                  <VBox alignment="CENTER" styleClass="general-setting-bg">
+                      <children>
+                          <HBox>
+                              <children>
+                                  <Label text="接受">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                      <HBox.margin>
+                                          <Insets left="10.0" top="10.0" />
+                                      </HBox.margin>
+                                  </Label>
+                              </children>
+                          </HBox>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="快速保存" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="保存目录" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                      </children>
+                      <VBox.margin>
+                          <Insets top="20.0" />
+                      </VBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER" styleClass="general-setting-bg">
+                      <children>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="端口" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                          <HBox>
+                              <children>
+                                  <Label text="网络">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                      <HBox.margin>
+                                          <Insets left="10.0" top="10.0" />
+                                      </HBox.margin>
+                                  </Label>
+                              </children>
+                          </HBox>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="服务器" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="别名" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="加密" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                          <AnchorPane prefHeight="50.0">
+                              <children>
+                                  <Label text="Multicast" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                      <font>
+                                          <Font size="16.0" />
+                                      </font>
+                                  </Label>
+                                  <ComboBox layoutX="300.0" prefWidth="150.0" promptText="1" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                              </children>
+                          </AnchorPane>
+                      </children>
+                      <VBox.margin>
+                          <Insets top="20.0" />
+                      </VBox.margin>
+                  </VBox>
+              </children>
+          </VBox>
    </children>
-</AnchorPane>
+</HBox>

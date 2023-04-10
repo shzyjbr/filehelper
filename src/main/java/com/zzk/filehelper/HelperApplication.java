@@ -20,16 +20,20 @@ public class HelperApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/fxml/main.fxml"));
-        Parent root =fxmlLoader.load();
+        SceneManager.instance.mainStage = primaryStage;
+
+        Parent root =FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
         SceneManager.instance.setMainPane(root);
+
+
         scene = new Scene(root, null);
         primaryStage.setScene(scene);
         primaryStage.setFullScreenExitHint("");
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("/img/logo.png")).toExternalForm()));
         primaryStage.setTitle("文件传输助手");
         primaryStage.show();
+
+
 
         // scene.setOnMousePressed(event -> {
         //     offsetX = event.getSceneX();
@@ -41,9 +45,6 @@ public class HelperApplication extends Application {
         //     primaryStage.setY(event.getScreenY()-offsetY);
         // });
 
-    // //    获取发送Pane
-    //     ObservableMap<String, Object> namespace = fxmlLoader.getNamespace();
-    //     // namespace.get()
     }
 
     @Override

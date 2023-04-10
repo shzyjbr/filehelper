@@ -6,22 +6,20 @@ import java.util.ResourceBundle;
 
 import com.zzk.filehelper.state.SceneManager;
 import javafx.animation.RotateTransition;
+import javafx.animation.Timeline;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
-import javafx.scene.Camera;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class ReceiveController {
 
@@ -45,23 +43,48 @@ public class ReceiveController {
     private Label ipLabel;
     private Label portLabel;
 
+    private Timeline showAnim;
+    private Timeline hideAnim;
+
+    private Parent historyMainPane;
+
+    public Timeline getShowAnim() {
+        return showAnim;
+    }
+
+    public void setShowAnim(Timeline showAnim) {
+        this.showAnim = showAnim;
+    }
+
+    public Timeline getHideAnim() {
+        return hideAnim;
+    }
+
+    public void setHideAnim(Timeline hideAnim) {
+        this.hideAnim = hideAnim;
+    }
+
+    public Parent getHistoryMainPane() {
+        return historyMainPane;
+    }
+
+    public void setHistoryMainPane(Parent historyMainPane) {
+        this.historyMainPane = historyMainPane;
+    }
+
     @FXML
     void showHistoryWin(MouseEvent event) {
 
-        try {
-            if (SceneManager.instance.getHistoryPane() == null) {
-                FXMLLoader historyLoader = new FXMLLoader();
-                historyLoader.setLocation(getClass().getResource("/fxml/history.fxml"));
-                Parent historyPane =historyLoader.load();
-                historyStackPane.getScene().setRoot(historyPane);
-                SceneManager.instance.setHistoryPane(historyPane);
-            } else {
-                historyStackPane.getScene().setRoot(SceneManager.instance.getHistoryPane());
-            }
+        System.out.println("historyStackPane," +( historyStackPane == null));
+        System.out.println("showAnim," +( showAnim == null));
+        System.out.println("hideAnim," +( hideAnim == null));
+        // showAnim已经注入
+        //    展示历史记录面板
+        // historyStackPane.setTranslateX(300);
+        historyMainPane.setVisible(true);
+        hideAnim.stop();
+        showAnim.play();
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
 
     }
 
@@ -114,6 +137,8 @@ public class ReceiveController {
         });
 
         initInfoPopup();
+        AnchorPane histortMainPane = (AnchorPane) SceneManager.instance.getHistortMainPane();
+        System.out.println("hideAnim:" +  (SceneManager.instance.getAnimation("hideAnim") == null));
     }
 
     private Stage findStage() {

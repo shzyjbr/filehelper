@@ -1,4 +1,4 @@
-open module com.example.javafxtest {
+open module com.zzk.filehelper {
     requires javafx.controls;
     requires javafx.fxml;
     requires hessian;
@@ -7,4 +7,5 @@ open module com.example.javafxtest {
     requires logback.core;
     requires com.google.common;
     requires lombok;
+    exports com.zzk.filehelper;
 }

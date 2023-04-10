@@ -1,3 +1,7 @@
+.slider-pane {
+    -fx-background-color: white;
+}
+
 
 .backStackPane {
     -fx-background-radius: 20px;

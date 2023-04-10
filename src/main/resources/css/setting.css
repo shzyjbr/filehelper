@@ -1,0 +1,18 @@
+.setting-main-bg {
+    -fx-background-color: white;
+
+}
+
+
+.general-setting-bg {
+    -fx-background-color: #f2f9f8;
+    -fx-background-radius: 10;
+}
+
+.combo-box {
+    -fx-background-color: #d8efed;
+    -fx-border-width: 0;
+}
+.combo-box:selected {
+    -fx-stroke-width: 0;
+}

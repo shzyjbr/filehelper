@@ -10,13 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/receive.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.ReceiveController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="receice-main-bg" stylesheets="@../css/receive.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.ReceiveController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="44.0" prefWidth="600.0" BorderPane.alignment="CENTER">
                <children>
-                  <StackPane layoutX="556.0" layoutY="5.0" onMouseReleased="#showInfo" prefHeight="36.0" prefWidth="36.0" styleClass="infoStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="25.0">
+                  <StackPane fx:id="infoStackPane" layoutX="556.0" layoutY="5.0" onMouseReleased="#showInfo" prefHeight="36.0" prefWidth="36.0" styleClass="infoStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="25.0">
                      <children>
                         <Region maxHeight="20.0" maxWidth="20.0" prefHeight="20.0" prefWidth="20.0" />
                      </children>

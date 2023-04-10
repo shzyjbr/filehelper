@@ -8,12 +8,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MainController {
@@ -25,11 +24,14 @@ public class MainController {
     private URL location;
 
     @FXML
+    private ReceiveController reveiveMainPaneController;
+
+    @FXML
     private AnchorPane reveiveMainPane;
     @FXML
-    private AnchorPane sendMainPane;
+    private Parent sendMainPane;
     @FXML
-    private AnchorPane settingMainPane;
+    private Parent settingMainPane;
 
     @FXML
     private AnchorPane receivePane;
@@ -58,12 +60,31 @@ public class MainController {
     @FXML
     private Region wifiRegion;
 
+    @FXML
+    private AnchorPane histortMainPane;
+    @FXML
+    private StackPane backStackPane;
 
-    private String baseColor = "#f2f9f8";
+    @FXML
+    private AnchorPane topBar;
 
-    private Timeline showAnim;
+    @FXML
+    private AnchorPane sliderPane;
+
+    @FXML
+    private AnchorPane masterPane;
+
+
+
     private Timeline hideAnim;
 
+    private Timeline showAnim;
+
+
+    /**
+     * 接收选项点击处理
+     * @param event
+     */
     @FXML
     void receiveActive(MouseEvent event) {
         System.out.println("receiveActive");
@@ -83,6 +104,11 @@ public class MainController {
 
     }
 
+
+    /**
+     * 发送选项卡点击处理
+     * @param event
+     */
     @FXML
     void sendActivte(MouseEvent event) {
         System.out.println("sendActivte");
@@ -99,6 +125,10 @@ public class MainController {
 
     }
 
+    /**
+     * 设置选项点击处理
+     * @param event
+     */
     @FXML
     void settingActive(MouseEvent event) {
         System.out.println("settingActive");
@@ -116,10 +146,36 @@ public class MainController {
 
     }
 
+    /**
+     * 收起历史记录面板，返回主界面
+     */
+    @FXML
+    void backToMain() {
+        showAnim.stop();
+        hideAnim.play();
+    }
+
     private void initAnim() {
-        // showAnim = new Timeline(new KeyFrame(Duration.millis(300), new KeyValue(sliderPane.translateXProperty(), 0)));
-        // hideAnim = new Timeline(new KeyFrame(Duration.millis(300), new KeyValue(sliderPane.translateXProperty(), 300)));
-        // hideAnim.setOnFinished(event -> drawerPane.setVisible(false));
+        System.out.println("initAnim()...");
+
+        showAnim = new Timeline(new KeyFrame(Duration.millis(300),
+                new KeyValue(sliderPane.translateXProperty(), 0)));
+
+        hideAnim = new Timeline(new KeyFrame(Duration.millis(300),
+                new KeyValue(sliderPane.translateXProperty(), 880)));
+        hideAnim.setOnFinished(event -> histortMainPane.setVisible(false));
+
+        reveiveMainPaneController.setShowAnim(showAnim);
+        reveiveMainPaneController.setHideAnim(hideAnim);
+        reveiveMainPaneController.setHistoryMainPane(histortMainPane);
+
+        SceneManager.instance.addAnimation("showAnim", showAnim);
+        SceneManager.instance.addAnimation("hideAnim", hideAnim);
+
+    }
+
+    private Stage findStage() {
+        return (Stage) masterPane.getScene().getWindow();
     }
 
     @FXML
@@ -130,6 +186,10 @@ public class MainController {
         reveiveMainPane.setVisible(true);
         sendMainPane.setVisible(false);
         settingMainPane.setVisible(false);
+        //历史面板初始不可见
+        histortMainPane.setVisible(false);
+        //把historyMainPane管理起来
+        SceneManager.instance.setHistortMainPane(histortMainPane);
         receiveStackPane.setStyle("-fx-background-color: #009688");
         sendStackPane.setStyle("-fx-background-color: #f2f9f8");
         settingStackPane.setStyle("-fx-background-color: #f2f9f8");
@@ -139,8 +199,17 @@ public class MainController {
 
         initAnim();
 
+    //    设置高度变化监听事件
 
-
+        // reveiveMainPane.getScene().getWindow().heightProperty().addListener((observableValue, number, t1) -> {
+        //     System.out.println(number);
+        //     System.out.println(t1);
+        // });
+        Stage primaryStage = SceneManager.instance.mainStage;
+        primaryStage.heightProperty().addListener(((observableValue, oldValue, newValue) -> {
+            System.out.println(oldValue);
+            System.out.println(newValue);
+        }));
     }
 
 }
