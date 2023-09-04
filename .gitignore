@@ -33,7 +33,6 @@ build/
 .vscode/
 
 
-.gitignore
 mvnw
 mvnw.cmd
 .mvn
