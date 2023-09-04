@@ -64,7 +64,7 @@ public class FileTaskManager implements FileObserver {
     public List<FileTask> getHistoryFileTasks() {
         return fileTasks
                 .stream()
-                .filter(fileTasks -> fileTasks.getTransferStatus()== FileTask.TransferStatus.history)
+                .filter(fileTasks -> fileTasks.getTransferStatus()== FileTask.TransferStatus.completed)
                 .collect(Collectors.toList());
     }
 

@@ -1,7 +1,7 @@
 package com.zzk.filehelper.network;
 
 
-import com.zzk.filehelper.domain.ClientConfig;
+import com.zzk.filehelper.config.ClientConfig;
 import com.zzk.filehelper.domain.Message;
 import com.zzk.filehelper.domain.MessageType;
 import com.zzk.filehelper.serialize.HessianSerializer;
@@ -45,7 +45,7 @@ public class RegisterRunnable implements Runnable {
                 // 4.取出数据
                 int len = recePack.getLength();
 
-                Message msg = (Message) hessianSerializer.deserialize(recePack.getData(), len, Message.class);
+                Message msg = hessianSerializer.deserialize(recePack.getData(), Message.class);
                 ClientConfig config = (ClientConfig) msg.getContent();
                 String hostAddress = recePack.getAddress().getHostAddress();
                 System.out.println("收到来自: " + hostAddress + ",对方端口号为: " + recePack.getPort() + "的消息: " + msg);

@@ -14,11 +14,6 @@ public class Message implements Serializable {
      */
     private Object content;
 
-    /**
-     * 0: 上线消息
-     * 1: 应答消息
-     * 2: 文件发送回复消息：同意或者拒绝
-     */
     private MessageType type;
 
     public Message(Object content, MessageType type) {

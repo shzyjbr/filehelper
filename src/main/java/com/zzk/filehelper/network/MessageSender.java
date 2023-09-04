@@ -71,7 +71,7 @@ public class MessageSender {
             // 获取回复消息
             byte[] resByte = dataInputStream.readNBytes(receiveMsgLen);
 
-            Message msg = (Message) hessianSerializer.deserialize(resByte, resByte.length, Message.class);
+            Message msg = (Message) hessianSerializer.deserialize(resByte, Message.class);
 
             return "accept".equals(msg.getContent());
 
@@ -98,7 +98,7 @@ public class MessageSender {
         // 获取预检请求消息内容
         byte[] resByte = dataInputStream.readNBytes(receiveMsgLen);
 
-        Message msg = (Message) hessianSerializer.deserialize(resByte, resByte.length, Message.class);
+        Message msg = hessianSerializer.deserialize(resByte, Message.class);
         if (msg.getType() != MessageType.SendFileRequest)
             throw new Exception("读取预检请求消息: unmatch MessageType.SendFileRequest");
 
@@ -142,7 +142,7 @@ public class MessageSender {
             // 获取预检请求消息内容
             byte[] resByte = dataInputStream.readNBytes(receiveMsgLen);
 
-            Message msg = (Message) hessianSerializer.deserialize(resByte, resByte.length, Message.class);
+            Message msg = (Message) hessianSerializer.deserialize(resByte, Message.class);
             if (msg.getType() != MessageType.SendFileRequest)
                 throw new Exception("读取预检请求消息: unmatch MessageType.SendFileRequest");
 

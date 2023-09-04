@@ -64,7 +64,7 @@ public class FileTransferUtil {
                 fileTask.setCurrentSize(readSize);
             }
             //    发送完成
-            fileTask.setTransferStatus(FileTask.TransferStatus.history);
+            fileTask.setTransferStatus(FileTask.TransferStatus.completed);
             fileTask.setFinish(true);
             System.out.println("发送完成");
             dataOutputStream.flush();
@@ -115,7 +115,7 @@ public class FileTransferUtil {
                     fileTask.setCurrentSize(read_size);
                 }
                 //    传输完成
-                fileTask.setTransferStatus(FileTask.TransferStatus.history);
+                fileTask.setTransferStatus(FileTask.TransferStatus.completed);
             } catch (IOException e) {
                 System.err.println("接收文件异常:" + e.getMessage());
                 e.printStackTrace();

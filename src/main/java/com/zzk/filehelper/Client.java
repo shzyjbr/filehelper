@@ -1,13 +1,16 @@
 package com.zzk.filehelper;
 
-import com.zzk.filehelper.domain.ClientConfig;
-import com.zzk.filehelper.domain.Message;
-import com.zzk.filehelper.domain.MessageType;
+import com.zzk.filehelper.config.ClientConfig;
+import com.zzk.filehelper.netty.SequenceIdGenerator;
+import com.zzk.filehelper.netty.message.Message;
+import com.zzk.filehelper.netty.message.OnlineRequestMessage;
 import com.zzk.filehelper.network.FileReceiver;
 import com.zzk.filehelper.network.FileTaskManager;
 import com.zzk.filehelper.network.NetworkConfig;
 import com.zzk.filehelper.network.RegisterRunnable;
 import com.zzk.filehelper.serialize.HessianSerializer;
+import com.zzk.filehelper.serialize.Serializer;
+import com.zzk.filehelper.serialize.SerializerFactory;
 import com.zzk.filehelper.state.DeviceManager;
 
 import java.io.IOException;
@@ -64,12 +67,13 @@ public class Client {
             config.setRegisterPort(NetworkConfig.REGISTER_PORT);
             config.setAutoSave(false);
             config.setFilePort(NetworkConfig.FILE_PORT);
-            Message message = new Message();
-            message.setContent(config);
-            message.setType(MessageType.Online);
+            OnlineRequestMessage message = new OnlineRequestMessage();
+            message.setIp("127.0.0.1");
+            message.setPort(9999);
+            message.setSequenceId(SequenceIdGenerator.nextId());
 
-            HessianSerializer hessianSerializer = new HessianSerializer();
-            byte[] bytes = hessianSerializer.serialize(message);
+            Serializer serializer = SerializerFactory.getSerializer(Serializer.JSON_SERIALIZER);
+            byte[] bytes = serializer.serialize(message);
             InetAddress inetAddress  = InetAddress.getByName("255.255.255.255");
             DatagramPacket packet = new DatagramPacket(bytes, bytes.length, inetAddress, NetworkConfig.REGISTER_PORT);
             socket.send(packet);

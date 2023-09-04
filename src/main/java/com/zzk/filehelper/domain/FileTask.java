@@ -1,5 +1,8 @@
 package com.zzk.filehelper.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +13,42 @@ import java.util.UUID;
  * @since: 2023/3/21 20:08
  * @description: 文件任务
  */
+@Data
+@AllArgsConstructor
 public class FileTask {
     public enum TransferStatus {
-        peeding, transferring, history, unexpected_close;
+        /**
+         * 排队中
+         */
+        peeding,
+        /**
+         * 传输中
+         */
+        transferring,
+        /**
+         * 传输完成
+         */
+        completed,
+        /**
+         * 异常关闭
+         */
+        unexpected_close;
     }
 
     public enum FileType {
-        receive, send;
+        /**
+         * 接收文件
+         */
+        receive,
+        /**
+         * 发送文件
+         */
+        send;
     }
 
+    /**
+     * 观察者模式，当文件传输完成时，可以用来通知对此传输任务进行观察的对象
+     */
     private List<FileObserver> observers;
 
     /**
@@ -28,12 +58,12 @@ public class FileTask {
 
 
     /**
-     * 文件名
+     * 文件名， 如 readme.txt
      */
     private String filename;
 
     /**
-     * 文件全路径
+     * 文件全路径，如 D:\\docs\\readme.txt
      */
 
     private String fullPath;
@@ -44,7 +74,7 @@ public class FileTask {
     private long totalSize;
 
     /**
-     * 文件当前大小
+     * 文件当前已接收大小；如果是个发送任务，则代表文件当前已发送大小
      */
     private long currentSize;
 
@@ -54,7 +84,7 @@ public class FileTask {
     private TransferStatus transferStatus;
 
     /**
-     * 是否已完成
+     * 是否已完成，和上面的传输状态有点重叠了
      */
     private boolean finish;
 
@@ -64,7 +94,7 @@ public class FileTask {
     private long createTime;
 
     /**
-     * 开始传输时间
+     * 开始传输时间。 用来计算传输速度
      */
     private long beginTransferTime;
 
@@ -78,154 +108,15 @@ public class FileTask {
      */
     private FileType fileType;
 
-    /**
-     * socket
-     */
-    private Socket socket;
 
     public FileTask() {
-        observers = new ArrayList<>(16);
+        observers = new ArrayList<>();
         taskId = UUID.randomUUID().toString().replaceAll("-","");
     }
 
-    public FileTask(String filename, long totalSize, long currentSize, TransferStatus transferStatus,
-                    boolean finish, long createTime, long beginTransferTime, long finishTime, FileType fileType) {
-        this();
-        this.filename = filename;
-        this.totalSize = totalSize;
-        this.currentSize = currentSize;
-        this.transferStatus = transferStatus;
-        this.finish = finish;
-        this.createTime = createTime;
-        this.beginTransferTime = beginTransferTime;
-        this.finishTime = finishTime;
-        this.fileType = fileType;
-    }
 
     public void register(FileObserver observer) {
         this.observers.add(observer);
     }
 
-    public String getFilename() {
-        return filename;
-    }
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    public long getTotalSize() {
-        return totalSize;
-    }
-
-    public void setTotalSize(long totalSize) {
-        this.totalSize = totalSize;
-    }
-
-    public long getCurrentSize() {
-        return currentSize;
-    }
-
-    public void setCurrentSize(long currentSize) {
-        this.currentSize = currentSize;
-        notifyObservers();
-    }
-
-
-    public boolean isFinish() {
-        return finish;
-    }
-
-    public void setFinish(boolean finish) {
-        this.finish = finish;
-        notifyObservers();
-    }
-
-    public long getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(long createTime) {
-        this.createTime = createTime;
-    }
-
-    public long getBeginTransferTime() {
-        return beginTransferTime;
-    }
-
-    public void setBeginTransferTime(long beginTransferTime) {
-        this.beginTransferTime = beginTransferTime;
-    }
-
-    public long getFinishTime() {
-        return finishTime;
-    }
-
-    public void setFinishTime(long finishTime) {
-        this.finishTime = finishTime;
-    }
-
-    public TransferStatus getTransferStatus() {
-        return transferStatus;
-    }
-
-    public void setTransferStatus(TransferStatus transferStatus) {
-        this.transferStatus = transferStatus;
-        notifyObservers();
-    }
-
-    private void notifyObservers() {
-        this.observers.forEach(observer -> observer.action(this));
-    }
-
-    public FileType getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(FileType fileType) {
-        this.fileType = fileType;
-    }
-
-    public String getFullPath() {
-        return fullPath;
-    }
-
-    public void setFullPath(String fullPath) {
-        this.fullPath = fullPath;
-    }
-
-    public Socket getSocket() {
-        return socket;
-    }
-
-    public void setSocket(Socket socket) {
-        this.socket = socket;
-    }
-
-    /**
-     * 计算当前传输进度;
-     * @return
-     */
-    public double getProgressRate() {
-        return (double) currentSize / totalSize;
-    }
-
-    @Override
-    public String toString() {
-        return "FileTask{" +
-                "observers=" + observers +
-                ", taskId='" + taskId + '\'' +
-                ", filename='" + filename + '\'' +
-                ", fullPath='" + fullPath + '\'' +
-                ", totalSize=" + totalSize +
-                ", currentSize=" + currentSize +
-                ", transferStatus=" + transferStatus +
-                ", finish=" + finish +
-                ", createTime=" + createTime +
-                ", beginTransferTime=" + beginTransferTime +
-                ", finishTime=" + finishTime +
-                ", fileType=" + fileType +
-                ", socket=" + socket +
-                '}';
-    }
 }

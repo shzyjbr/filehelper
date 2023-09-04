@@ -1,6 +1,6 @@
 package com.zzk.filehelper.state;
 
-import com.zzk.filehelper.domain.ClientConfig;
+import com.zzk.filehelper.config.ClientConfig;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

@@ -1,4 +1,4 @@
-package com.zzk.filehelper.domain;
+package com.zzk.filehelper.config;
 
 import java.io.Serializable;
 
