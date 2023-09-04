@@ -8,6 +8,8 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.util.List;
 
+import static com.zzk.filehelper.netty.message.MessageConfig.OPTION_MESSAGE;
+
 /**
  * 预请求消息，比如A给B传输文件，A会发送一个预请求消息，B确认之后才可以传输文件
  * @author: kkrunning
@@ -18,10 +20,15 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-public class OptionMessage implements Serializable {
+public class OptionMessage extends Message{
 
     /**
      * 要发送的文件名
      */
     private List<String> files;
+
+    @Override
+    public int getMessageType() {
+        return OPTION_MESSAGE;
+    }
 }

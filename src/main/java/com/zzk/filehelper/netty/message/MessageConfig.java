@@ -30,6 +30,7 @@ public class MessageConfig {
      */
     public static final int REPLY_MESSAGE = 102;
 
+    public static final int OPTION_MESSAGE = 103;
     private static final Map<Integer, Class<? extends Message>> messageClasses = new HashMap<>();
 
     static {

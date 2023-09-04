@@ -2,6 +2,7 @@ package com.zzk.filehelper.netty;
 
 import com.zzk.filehelper.handler.NettyClientHandler;
 import com.zzk.filehelper.netty.message.Message;
+import com.zzk.filehelper.netty.message.OptionMessage;
 import com.zzk.filehelper.netty.protocol.MessageCodecSharable;
 import com.zzk.filehelper.netty.protocol.NettyServerHandler;
 import com.zzk.filehelper.netty.protocol.ProcotolFrameDecoder;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
+import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -58,7 +60,9 @@ public class UdpClient {
             Channel channel = null;
             try {
                 channel = connect(bootstrap, inetSocketAddress);
-                sendRequest(channel, Message.builder().build());
+                OptionMessage optionMessage = new OptionMessage();
+                optionMessage.setFiles(Arrays.asList("readme.txt", "sout.txt"));
+                sendRequest(channel, optionMessage);
             } catch (ExecutionException e) {
                 log.error("连接客户端时发生错误，", e);
             }
@@ -80,7 +84,7 @@ public class UdpClient {
         return completableFuture.get();
     }
 
-    public void sendRequest(Channel channel, Message rpcRequest) {
+    public static void sendRequest(Channel channel, Message rpcRequest) {
         channel.writeAndFlush(rpcRequest).addListener((ChannelFutureListener) future1 -> {
             if (future1.isSuccess()) {
                 log.info("客户端成功发送消息：{}", rpcRequest.toString());
