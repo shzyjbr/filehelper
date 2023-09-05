@@ -22,7 +22,7 @@ public class JsonSerializer implements Serializer{
 
     @Override
     public <T> T deserialize(byte[] bytes, Class<T> clazz) {
-        return null;
+        return JSON.parseObject(bytes, clazz);
     }
 
     @Override

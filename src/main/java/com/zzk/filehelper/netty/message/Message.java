@@ -1,12 +1,16 @@
 package com.zzk.filehelper.netty.message;
 
+import lombok.Data;
+
 import java.io.Serializable;
 
+
+@Data
 public abstract class Message implements Serializable {
 
-    private int sequenceId;
+    protected int sequenceId;
 
-    private int messageType;
+    protected int messageType;
 
     public abstract int getMessageType();
 

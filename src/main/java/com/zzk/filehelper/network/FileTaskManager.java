@@ -78,6 +78,5 @@ public class FileTaskManager implements FileObserver {
     //    模拟做一件事情
         System.out.println(task);
         System.out.println("收到filetask状态改变:"+ task.getTransferStatus());
-        System.out.println("发送进度："+ String.format("%.2f%%",task.getProgressRate() * 100.0 ));
     }
 }

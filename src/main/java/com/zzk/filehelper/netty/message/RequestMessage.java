@@ -14,7 +14,6 @@ import static com.zzk.filehelper.netty.message.MessageConfig.REQUEST_MESSAGE;
  * @Version 1.0
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
 public class RequestMessage extends Message {
