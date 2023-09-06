@@ -27,11 +27,6 @@ public class FileMessage extends Message{
      */
     private String name;
 
-    /**
-     * 文件内容
-     */
-    private byte[] content;
-
     @Override
     public int getMessageType() {
         return MessageConfig.FILE_MESSAGE;

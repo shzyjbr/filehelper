@@ -10,6 +10,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 
@@ -34,31 +36,40 @@ public class CommonDecoder extends ReplayingDecoder<Void> {
     protected void decode(ChannelHandlerContext ctx, ByteBuf in, List<Object> outList) throws Exception {
         // 1. 4字节魔术
         int magicNum = in.readInt();
-        // 2. 1 字节的版本
-        byte version = in.readByte();
-        // 3. 1 字节的序列化方式 jdk 0 , json 1
-        byte serializerCode = in.readByte(); // 0 或 1
         // 4. 1 字节的消息类型
         byte messageType = in.readByte(); // 0,1,2...
+
+
         if (messageType == MessageConfig.FILE_MESSAGE) {
             // 如果是文件消息，根据你的文件消息格式来解析消息
-            // 伪装一条文件传输消息
-            // 5. 4 个字节序列号
+            // 文件消息格式 4字节魔术字 1字节消息类型 4字节序列号 4字节文件名长度 n字节文件名 4字节文件长度 剩余：文件内容
+            //  4 个字节序列号
             int sequenceId = in.readInt();
-            // 6. 无意义，对齐填充
-            in.readByte();
-            // 7. 长度
-            int length = in.readInt();
+            // 4字节文件名长度
+            int filenameLen = in.readInt();
+            byte[] filenameBytes = new byte[filenameLen];
+            // filenameLen字节文件名
+            in.readBytes(filenameBytes);
+            String filename = new String(filenameBytes, StandardCharsets.UTF_8);
+
+            // 4字节文件长度
+            int fileContentLen = in.readInt();
             // 获取内容的字节数组
-            byte[] bytes = new byte[length];
-            // 8. 读取内容
-            in.readBytes(bytes, 0, length);
-            log.info("magicNum:{}, version:{}, serializerAlgorithm:{}, messageType:{}, sequenceId:{}, length:{}",
-                    magicNum, version, serializerCode, messageType, sequenceId, length);
+            byte[] bytes = new byte[fileContentLen];
+            // 读取内容
+            in.readBytes(bytes, 0, fileContentLen);
+            RandomAccessFile rw = new RandomAccessFile("copy_"+filename, "rw");
+            rw.write(bytes);
+            log.info("写入文件长度:{}",fileContentLen);
 
         } else {
             ctx.pipeline().addLast(new OptionRequestMessageHandler());
             ctx.pipeline().addLast(new OptionReplyMessageHandler());
+
+            // 2. 1 字节的版本
+            byte version = in.readByte();
+            // 3. 1 字节的序列化方式 jdk 0 , json 1
+            byte serializerCode = in.readByte(); // 0 或 1
             // 5. 4 个字节序列号
             int sequenceId = in.readInt();
             // 6. 无意义，对齐填充

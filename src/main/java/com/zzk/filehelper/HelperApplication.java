@@ -34,9 +34,6 @@ public class HelperApplication extends Application {
 
     private Channel statusChannel;
 
-    private EventLoopGroup fileGroup;
-
-    private Bootstrap fileBootstrap;
     private FileServer fileServer;
 
     @Override
