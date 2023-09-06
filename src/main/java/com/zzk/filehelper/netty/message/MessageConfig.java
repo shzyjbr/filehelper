@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 消息类型集中管理，增加和删除消息需要在这里做统一的配置
  * @Author kelton
  * @Date 2023/9/4 22:20
  * @Version 1.0
@@ -18,9 +19,29 @@ public class MessageConfig {
         return messageClasses.get(messageType);
     }
 
+    /**
+     * 上线请求消息
+     */
     public static final int ONLINE_REQUEST_MESSAGE = 0;
+    /**
+     * 上线回复消息
+     */
     public static final int ONLINE_REPLY_MESSAGE = 1;
 
+    /**
+     * 离线通知消息，不需要回复
+     */
+    public static final int OFFLINE_MESSAGE = 2;
+
+    /**
+     * 文件发送预检请求消息
+     */
+    public static final int OPTION_REQUEST_MESSAGE = 3;
+    /**
+     * 文件发送预检回复消息
+     */
+    public static final int OPTION_REPLY_MESSAGE = 4;
+    public static final int FILE_MESSAGE = 5;
     /**
      * 请求类型 byte 值
      */
@@ -30,12 +51,17 @@ public class MessageConfig {
      */
     public static final int REPLY_MESSAGE = 102;
 
-    public static final int OPTION_MESSAGE = 103;
     private static final Map<Integer, Class<? extends Message>> messageClasses = new HashMap<>();
 
     static {
         messageClasses.put(ONLINE_REQUEST_MESSAGE, OnlineRequestMessage.class);
         messageClasses.put(ONLINE_REPLY_MESSAGE, OnlineReplyMessage.class);
+        messageClasses.put(OPTION_REQUEST_MESSAGE, OptionRequestMessage.class);
+        messageClasses.put(OPTION_REPLY_MESSAGE, OptionReplyMessage.class);
+        messageClasses.put(OFFLINE_MESSAGE, OfflineMessage.class);
+        messageClasses.put(FILE_MESSAGE, FileMessage.class);
+
+
 
         messageClasses.put(REQUEST_MESSAGE, RequestMessage.class);
         messageClasses.put(REPLY_MESSAGE, ReplyMessage.class);

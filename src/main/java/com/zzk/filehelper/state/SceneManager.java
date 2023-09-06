@@ -3,6 +3,7 @@ package com.zzk.filehelper.state;
 import javafx.animation.Animation;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
+import lombok.Data;
 
 import java.util.HashMap;
 
@@ -11,6 +12,7 @@ import java.util.HashMap;
  * @since: 2023/3/25 15:50
  * @description:
  */
+@Data
 public class SceneManager {
 
     public static final SceneManager instance = new SceneManager();
@@ -36,29 +38,5 @@ public class SceneManager {
 
     public Animation getAnimation(String name) {
         return animations.get(name);
-    }
-
-    public Parent getMainPane() {
-        return mainPane;
-    }
-
-    public void setMainPane(Parent mainPane) {
-        this.mainPane = mainPane;
-    }
-
-    public Parent getHistoryPane() {
-        return historyPane;
-    }
-
-    public void setHistoryPane(Parent historyPane) {
-        this.historyPane = historyPane;
-    }
-
-    public Parent getHistortMainPane() {
-        return histortMainPane;
-    }
-
-    public void setHistortMainPane(Parent histortMainPane) {
-        this.histortMainPane = histortMainPane;
     }
 }

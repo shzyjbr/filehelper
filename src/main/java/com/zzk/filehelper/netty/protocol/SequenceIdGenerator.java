@@ -5,8 +5,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * 用于做全局增长的id生成器
  */
-public abstract class SequenceIdGenerator {
-    private static final AtomicInteger id = new AtomicInteger();
+public class SequenceIdGenerator {
+    private static final AtomicInteger id = new AtomicInteger(1);
 
     public static int nextId() {
         return id.incrementAndGet();

@@ -1,30 +1,18 @@
-package com.zzk.filehelper.netty;
+package com.zzk.filehelper;
 
 import com.zzk.filehelper.handler.NettyClientHandler;
-import com.zzk.filehelper.netty.message.Message;
 import com.zzk.filehelper.netty.message.OnlineRequestMessage;
-import com.zzk.filehelper.netty.message.OptionMessage;
-import com.zzk.filehelper.netty.protocol.*;
 import com.zzk.filehelper.netty.protocol.SequenceIdGenerator;
 import com.zzk.filehelper.serialize.Serializer;
-import com.zzk.filehelper.serialize.SerializerFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.DatagramPacket;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioDatagramChannel;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 /**
  * @Author kelton
@@ -64,6 +52,7 @@ public class UdpClient {
                 System.out.println(bytes.length);
                 DatagramPacket packet = new DatagramPacket(Unpooled.copiedBuffer(bytes), addr);
                 channel.writeAndFlush(packet).sync();
+                channel.closeFuture().await();
             }
         } finally {
             workerGroup.shutdownGracefully();

@@ -1,5 +1,9 @@
 package com.zzk.filehelper.config;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
 /**
@@ -7,53 +11,22 @@ import java.io.Serializable;
  * @since: 2023/3/13 14:34
  * @description:
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ClientConfig implements Serializable {
-
+    /**
+     * 该客户端的文件接收端口
+     */
     private int filePort;
 
-    private int registerPort;
+    /**
+     * 该客户端的状态端口, 上线下线
+     */
+    private int statusPort;
+    /**
+     * 自动保存表示向该客户端传输文件无需发送预检请求
+     */
     private boolean autoSave;
 
-    public ClientConfig(int filePort, int registerPort, boolean autoSave) {
-        this.filePort = filePort;
-        this.autoSave = autoSave;
-        this.registerPort = registerPort;
-    }
-
-    public ClientConfig() {
-    }
-
-    public int getFilePort() {
-        return filePort;
-    }
-
-    public void setFilePort(int filePort) {
-        this.filePort = filePort;
-    }
-
-    public boolean getAutoSave() {
-        return autoSave;
-    }
-
-    public void setAutoSave(boolean autoSave) {
-        this.autoSave = autoSave;
-    }
-
-
-    public int getRegisterPort() {
-        return registerPort;
-    }
-
-    public void setRegisterPort(int registerPort) {
-        this.registerPort = registerPort;
-    }
-
-    @Override
-    public String toString() {
-        return "ClientConfig{" +
-                "filePort=" + filePort +
-                ", registerPort=" + registerPort +
-                ", autoSave=" + autoSave +
-                '}';
-    }
 }

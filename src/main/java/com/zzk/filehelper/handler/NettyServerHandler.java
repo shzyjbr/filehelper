@@ -1,5 +1,7 @@
 package com.zzk.filehelper.handler;
 
+import com.zzk.filehelper.netty.message.MessageConfig;
+import com.zzk.filehelper.netty.message.OfflineMessage;
 import com.zzk.filehelper.netty.message.OnlineReplyMessage;
 import com.zzk.filehelper.netty.message.OnlineRequestMessage;
 import com.zzk.filehelper.serialize.Serializer;
@@ -24,6 +26,24 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<DatagramPack
     protected void channelRead0(ChannelHandlerContext ctx, DatagramPacket packet) throws Exception {
 
         ByteBuf msg = packet.content();
+        byte b = msg.readByte();
+        if (b== MessageConfig.ONLINE_REQUEST_MESSAGE) {
+            // 上线消息
+            processOnlineMessage(ctx, packet, msg);
+        } else if (b == MessageConfig.OFFLINE_MESSAGE) {
+            // 下线消息
+            int len = msg.readableBytes();
+            byte[] bytes = new byte[len];
+            msg.readBytes(bytes);
+            Serializer  serializer = Serializer.getByCode(Serializer.JSON_SERIALIZER);
+            OfflineMessage  offlineMessage = serializer.deserialize(bytes, OfflineMessage.class);
+            log.info("服务端接收到客户端下线消息: {}",offlineMessage);
+        }
+
+
+    }
+
+    private void processOnlineMessage(ChannelHandlerContext ctx, DatagramPacket packet, ByteBuf msg) {
         int len = msg.readableBytes();
         byte[] bytes = new byte[len];
         msg.readBytes(bytes);
@@ -37,7 +57,6 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<DatagramPack
         onlineReplyMessage.setMessageType(onlineReplyMessage.getMessageType());
         byte[] reply = serializer.serialize(onlineReplyMessage);
         ctx.writeAndFlush(new DatagramPacket(Unpooled.wrappedBuffer(reply), packet.sender()));
-
     }
 
     @Override

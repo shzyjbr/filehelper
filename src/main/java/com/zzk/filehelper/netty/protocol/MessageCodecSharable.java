@@ -3,7 +3,7 @@ package com.zzk.filehelper.netty.protocol;
 
 import com.zzk.filehelper.netty.message.Message;
 import com.zzk.filehelper.netty.message.MessageConfig;
-import com.zzk.filehelper.netty.message.OptionMessage;
+import com.zzk.filehelper.netty.message.OptionRequestMessage;
 import com.zzk.filehelper.serialize.JsonSerializer;
 import com.zzk.filehelper.serialize.Serializer;
 import com.zzk.filehelper.serialize.SerializerFactory;
@@ -20,9 +20,9 @@ import java.util.List;
  */
 @Slf4j
 @ChannelHandler.Sharable
-public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, OptionMessage> {
+public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, OptionRequestMessage> {
     @Override
-    public void encode(ChannelHandlerContext ctx, OptionMessage msg, List<Object> outList) throws Exception {
+    public void encode(ChannelHandlerContext ctx, OptionRequestMessage msg, List<Object> outList) throws Exception {
         ByteBuf out = ctx.alloc().buffer();
         // 1. 4 字节的魔数
         out.writeBytes(new byte[]{1, 2, 3, 4});

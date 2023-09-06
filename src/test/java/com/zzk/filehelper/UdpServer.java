@@ -1,4 +1,4 @@
-package com.zzk.filehelper.netty.register;
+package com.zzk.filehelper;
 
 import com.zzk.filehelper.handler.NettyServerHandler;
 import com.zzk.filehelper.netty.protocol.*;
@@ -15,9 +15,7 @@ import io.netty.channel.socket.nio.NioDatagramChannel;
  */
 public class UdpServer {
     public static void main(String[] args) throws InterruptedException {
-        MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
         EventLoopGroup group = new NioEventLoopGroup();
-        Serializer serializer = Serializer.getByCode(Serializer.JSON_SERIALIZER);
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(group)

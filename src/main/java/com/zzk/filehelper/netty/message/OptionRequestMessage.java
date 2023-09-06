@@ -5,10 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.io.Serializable;
 import java.util.List;
 
-import static com.zzk.filehelper.netty.message.MessageConfig.OPTION_MESSAGE;
+import static com.zzk.filehelper.netty.message.MessageConfig.OPTION_REQUEST_MESSAGE;
 
 /**
  * 预请求消息，比如A给B传输文件，A会发送一个预请求消息，B确认之后才可以传输文件
@@ -20,7 +19,7 @@ import static com.zzk.filehelper.netty.message.MessageConfig.OPTION_MESSAGE;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(callSuper = true)
-public class OptionMessage extends Message{
+public class OptionRequestMessage extends Message{
 
     /**
      * 要发送的文件名
@@ -29,6 +28,6 @@ public class OptionMessage extends Message{
 
     @Override
     public int getMessageType() {
-        return OPTION_MESSAGE;
+        return OPTION_REQUEST_MESSAGE;
     }
 }
