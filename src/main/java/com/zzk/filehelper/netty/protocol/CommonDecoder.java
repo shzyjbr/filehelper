@@ -2,9 +2,11 @@ package com.zzk.filehelper.netty.protocol;
 
 import com.zzk.filehelper.netty.message.Message;
 import com.zzk.filehelper.netty.message.MessageConfig;
+import com.zzk.filehelper.network.FileConfig;
 import com.zzk.filehelper.serialize.JsonSerializer;
 import com.zzk.filehelper.serialize.Serializer;
 import com.zzk.filehelper.serialize.SerializerFactory;
+import com.zzk.filehelper.state.ServerManager;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ReplayingDecoder;
@@ -58,10 +60,12 @@ public class CommonDecoder extends ReplayingDecoder<Void> {
             byte[] bytes = new byte[fileContentLen];
             // 读取内容
             in.readBytes(bytes, 0, fileContentLen);
-            RandomAccessFile rw = new RandomAccessFile("copy_"+filename, "rw");
+            // todo 目前写死指定的路径
+            RandomAccessFile rw = new RandomAccessFile(ServerManager.getInstance().getSaveDir() + filename, "rw");
             rw.write(bytes);
-            log.info("写入文件长度:{}",fileContentLen);
-
+            log.info("写入文件长度:{}", fileContentLen);
+            // 模拟修改文件保存目录
+            ServerManager.getInstance().setSaveDir("D:\\temp\\");
         } else {
             ctx.pipeline().addLast(new OptionRequestMessageHandler());
             ctx.pipeline().addLast(new OptionReplyMessageHandler());
