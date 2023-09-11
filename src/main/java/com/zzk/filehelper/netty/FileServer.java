@@ -1,9 +1,7 @@
 package com.zzk.filehelper.netty;
 
-import com.zzk.filehelper.netty.protocol.CommonDecoder;
-import com.zzk.filehelper.netty.protocol.CommonEncoder;
-import com.zzk.filehelper.netty.protocol.OptionReplyMessageHandler;
-import com.zzk.filehelper.netty.protocol.OptionRequestMessageHandler;
+import com.zzk.filehelper.handler.FileReceiveServerHandler;
+import com.zzk.filehelper.netty.protocol.*;
 import com.zzk.filehelper.serialize.Serializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
@@ -29,9 +27,11 @@ public class FileServer {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
-                        pipeline
-                                .addLast(new CommonDecoder())
-                                .addLast(new CommonEncoder(serializer));
+                        // 加入文件接收功能
+                        pipeline.addLast(new FileReceiveServerHandler());
+                        pipeline.addLast(new CommonDecoder());
+                        pipeline.addLast(new CommonEncoder(serializer));
+                        pipeline.addLast(new FileMessageHandler());
 //                                .addLast(new OptionRequestMessageHandler())
 //                                .addLast(new OptionReplyMessageHandler());
                     }

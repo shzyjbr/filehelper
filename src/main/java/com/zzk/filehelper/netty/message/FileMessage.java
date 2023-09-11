@@ -1,15 +1,10 @@
 package com.zzk.filehelper.netty.message;
 
-import com.zzk.filehelper.netty.message.Message;
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.stream.ChunkedInput;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.File;
 
 /**
  * ChunkedInput了解一下
@@ -25,7 +20,13 @@ public class FileMessage extends Message{
     /**
      * 文件名
      */
-    private String name;
+    private File file;
+
+    /**
+     * 0 表示文件发送请求
+     * 1 表示后续内容接受
+     */
+    private int ACK;
 
     @Override
     public int getMessageType() {

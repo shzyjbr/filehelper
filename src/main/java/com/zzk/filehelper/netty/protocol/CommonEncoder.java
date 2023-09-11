@@ -46,7 +46,7 @@ public class CommonEncoder extends MessageToByteEncoder<Message> {
             out.writeByte(msg.getMessageType());
             // 4字节序列号
             out.writeInt(msg.getSequenceId());
-            String filename =fileMessage.getName();
+            String filename =fileMessage.getFile();
             Path filePath = Paths.get(filename);
             if (!Files.exists(filePath)) {
                 throw new RuntimeException("文件不存在！！！");

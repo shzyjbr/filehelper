@@ -9,7 +9,7 @@ import java.io.File;
  */
 public interface FileConfig {
 
-    int MAGIC_NUMBER = 0x0130e082;
+
 
     /**
      * 0:文件类型

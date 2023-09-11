@@ -8,6 +8,11 @@ package com.zzk.filehelper.network;
 public interface NetworkConfig {
 
     /**
+     * 魔术字
+     */
+    int MAGIC_NUMBER = 0x0130e082;
+
+    /**
      * 注册端口，客户端上下线
      */
     int REGISTER_PORT = 8000;
