@@ -1,8 +1,10 @@
 package com.zzk.filehelper.state;
 
 import com.zzk.filehelper.config.ClientConfig;
+import com.zzk.filehelper.network.IpUtil;
 
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 
@@ -30,8 +32,8 @@ public class DeviceManager {
     private DeviceManager() {
         this.devices = new HashMap<>();
         try {
-            this.localIP = InetAddress.getLocalHost().getHostAddress();
-        } catch (UnknownHostException e) {
+            this.localIP = IpUtil.getLocalIp4Address();
+        } catch (SocketException e) {
             throw new RuntimeException(e);
         }
     }
@@ -40,11 +42,22 @@ public class DeviceManager {
         return instance;
     }
 
-    public void addDevice(String deviceName, ClientConfig config) {
-        if (!deviceName.equals(getLocalIP())) {
-            this.devices.put(deviceName, config);
+    /**
+     * deviceName目前直接用ip
+     * @param ip
+     * @param port
+     */
+    public void addDevice(String ip, int port) {
+        if (!ip.equals(getLocalIP())) {
+            // todo 目前还没实现自动保存相关功能
+            this.devices.put(ip, new ClientConfig(ip, port, false));
         }
+        // 打印当前的客户端记录信息
         this.devices.forEach((String device, ClientConfig cfg) -> System.out.println(device + "::::" + cfg));
+    }
+
+    public void removeDevice(String ip) {
+        devices.remove(ip);
     }
 
     public void clearDevice() {

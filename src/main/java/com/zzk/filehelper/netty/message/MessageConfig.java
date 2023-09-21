@@ -59,11 +59,6 @@ public class MessageConfig {
         messageClasses.put(OPTION_REQUEST_MESSAGE, OptionRequestMessage.class);
         messageClasses.put(OPTION_REPLY_MESSAGE, OptionReplyMessage.class);
         messageClasses.put(OFFLINE_MESSAGE, OfflineMessage.class);
-        messageClasses.put(FILE_MESSAGE, FileMessage.class);
 
-
-
-        messageClasses.put(REQUEST_MESSAGE, RequestMessage.class);
-        messageClasses.put(REPLY_MESSAGE, ReplyMessage.class);
     }
 }

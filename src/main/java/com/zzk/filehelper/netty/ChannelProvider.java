@@ -1,15 +1,10 @@
 package com.zzk.filehelper.netty;
 
-import com.zzk.filehelper.handler.NettyClientHandler;
-import com.zzk.filehelper.netty.protocol.MessageCodecSharable;
-import com.zzk.filehelper.netty.protocol.ProcotolFrameDecoder;
-import com.zzk.filehelper.serialize.Serializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetSocketAddress;
@@ -18,20 +13,31 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 
-
+/**
+ * 在这里保存和其他客户端的文件传输channel
+ */
 @Slf4j
 public class ChannelProvider {
     private static EventLoopGroup workerGroup;
     private static final Bootstrap bootstrap = initializeBootstrap();
+    /**
+     * key是ip:port， value是channel
+     */
     private static final Map<String, Channel> channels = new ConcurrentHashMap<>();
-    private static final MessageCodecSharable MESSAGE_CODEC = new MessageCodecSharable();
 
     public static void shutdown() {
         workerGroup.shutdownGracefully();
     }
 
-    public static Channel getChannel(InetSocketAddress inetSocketAddress, Serializer serializer) throws InterruptedException {
-        String key = inetSocketAddress.toString() + serializer.getCode();
+    /**
+     * 获取channel，可能来自缓存，也可能是新建的
+     * @param ip
+     * @param port
+     * @return
+     * @throws InterruptedException
+     */
+    public static Channel getChannel(String ip, int port) throws InterruptedException {
+        String key = ip + ":" + port;
         if (channels.containsKey(key)) {
             Channel channel = channels.get(key);
             if (channel.isActive()) {
@@ -44,13 +50,13 @@ public class ChannelProvider {
             @Override
             protected void initChannel(SocketChannel socketChannel) {
                 socketChannel.pipeline()
-                        .addLast(new ProcotolFrameDecoder())
-                        .addLast(MESSAGE_CODEC)
-                        .addLast(new NettyClientHandler());
+                        // todo 替换成文件传输的handler
+                        .addLast();
             }
         });
         Channel channel = null;
         try {
+            InetSocketAddress inetSocketAddress = new InetSocketAddress(ip, port);
             channel = connect(bootstrap, inetSocketAddress);
         } catch (ExecutionException e) {
             log.error("连接客户端时发生错误，", e);

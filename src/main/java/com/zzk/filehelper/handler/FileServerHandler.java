@@ -3,12 +3,14 @@ package com.zzk.filehelper.handler;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.handler.stream.ChunkedFile;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
+
+/**
+ * 计算文件传输速度的样板代码，暂未使用
+ */
 public class FileServerHandler extends ChannelInboundHandlerAdapter {
 
     private FileOutputStream fos;

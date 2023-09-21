@@ -9,5 +9,6 @@ open module com.zzk.filehelper {
     requires lombok;
     requires io.netty.all;
     requires com.alibaba.fastjson2;
+    requires org.apache.commons.lang3;
     exports com.zzk.filehelper;
 }

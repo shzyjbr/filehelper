@@ -16,14 +16,15 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class ClientConfig implements Serializable {
     /**
+     * 该客户端的局域网ip
+     */
+    private String ip;
+
+    /**
      * 该客户端的文件接收端口
      */
     private int filePort;
 
-    /**
-     * 该客户端的状态端口, 上线下线
-     */
-    private int statusPort;
     /**
      * 自动保存表示向该客户端传输文件无需发送预检请求
      */

@@ -1,9 +1,6 @@
 package com.zzk.filehelper.state;
 
-import com.zzk.filehelper.netty.message.FileMessage;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +17,7 @@ public class FileManager {
 
     private long length;
 
-    private List<FileMessage> pendingFiles;
+    private List<Object> pendingFiles;
 
     public static FileManager INSTANCE;
 

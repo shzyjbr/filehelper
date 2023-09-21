@@ -1,9 +1,10 @@
 package com.zzk.filehelper;
 
-import com.zzk.filehelper.handler.NettyServerHandler;
+import com.zzk.filehelper.handler.ServerStatusHandler;
 import com.zzk.filehelper.netty.FileServer;
 import com.zzk.filehelper.netty.message.MessageConfig;
 import com.zzk.filehelper.netty.message.OfflineMessage;
+import com.zzk.filehelper.network.NetworkConfig;
 import com.zzk.filehelper.serialize.Serializer;
 import com.zzk.filehelper.state.SceneManager;
 import io.netty.bootstrap.Bootstrap;
@@ -71,7 +72,7 @@ public class HelperApplication extends Application {
         startStatusServer();
         System.out.println("启动文件监听服务器中...");
         fileServer = new FileServer();
-        fileServer.run(9999);
+        fileServer.run(NetworkConfig.FILE_PORT);
     }
 
     @Override
@@ -96,7 +97,7 @@ public class HelperApplication extends Application {
     }
 
 
-    private void startStatusServer() throws InterruptedException {
+    private void startStatusServer() {
         statusGroup = new NioEventLoopGroup();
         try {
             statusBootstrap = new Bootstrap();
@@ -111,12 +112,11 @@ public class HelperApplication extends Application {
                         protected void initChannel(NioDatagramChannel ch) {
                             ChannelPipeline pipeline = ch.pipeline();
                             pipeline
-                                    .addLast(new NettyServerHandler());
+                                    .addLast(new ServerStatusHandler());
                         }
                     });
-            int listenPort = 9099;
-            statusChannel = statusBootstrap.bind(listenPort).sync().channel();
-            System.out.println("状态服务器已启动，正在监听端口：" + listenPort);
+            statusChannel = statusBootstrap.bind(NetworkConfig.REGISTER_PORT).sync().channel();
+            System.out.println("状态服务器已启动，正在监听端口：" + NetworkConfig.REGISTER_PORT);
             // 这里不能出现阻塞当前线程的操作，否则无法调出JavaFX主窗口
         } catch (InterruptedException e) {
             System.out.println("状态服务器启动异常，开始关闭客户端...");

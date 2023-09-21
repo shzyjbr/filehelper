@@ -15,6 +15,6 @@ import lombok.extern.slf4j.Slf4j;
 public class OptionReplyMessageHandler extends SimpleChannelInboundHandler<OptionReplyMessage> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, OptionReplyMessage msg) throws Exception {
-        log.info("receive option reply message:{}", msg);
+        log.info("客户端接收到文件预检回复消息:{}", msg);
     }
 }

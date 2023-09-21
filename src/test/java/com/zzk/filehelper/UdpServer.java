@@ -1,8 +1,6 @@
 package com.zzk.filehelper;
 
-import com.zzk.filehelper.handler.NettyServerHandler;
-import com.zzk.filehelper.netty.protocol.*;
-import com.zzk.filehelper.serialize.Serializer;
+import com.zzk.filehelper.handler.ServerStatusHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -29,7 +27,7 @@ public class UdpServer {
                         protected void initChannel(NioDatagramChannel ch) {
                             ChannelPipeline pipeline = ch.pipeline();
                             pipeline
-                                    .addLast(new NettyServerHandler());
+                                    .addLast(new ServerStatusHandler());
                         }
                     });
 
