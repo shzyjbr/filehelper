@@ -41,15 +41,16 @@ public class MessageConfig {
      * 文件发送预检回复消息
      */
     public static final int OPTION_REPLY_MESSAGE = 4;
+    /**
+     * 文件内容消息
+     */
     public static final int FILE_MESSAGE = 5;
+
     /**
-     * 请求类型 byte 值
+     * 文件元信息消息，存着文件名长度，文件名，文件大小，总共分成几个包等信息
      */
-    public static final int REQUEST_MESSAGE = 101;
-    /**
-     * 响应类型 byte 值
-     */
-    public static final int REPLY_MESSAGE = 102;
+    public static final int FILE_META_MESSAGE = 6;
+
 
     private static final Map<Integer, Class<? extends Message>> messageClasses = new HashMap<>();
 

@@ -31,6 +31,8 @@ public class FileServer {
                         pipeline.addLast(new CommonEncoder(serializer));
                         pipeline.addLast(new OptionRequestMessageHandler());
                         pipeline.addLast(new OptionReplyMessageHandler());
+                        pipeline.addLast(new FileMetaMessageHandler());
+                        pipeline.addLast(new FileContentMessageHandler());
                     }
                 });
 

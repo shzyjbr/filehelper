@@ -1,11 +1,14 @@
 package com.zzk.filehelper.netty.protocol;
 
+import com.zzk.filehelper.netty.message.FileContentMessage;
 import com.zzk.filehelper.netty.message.Message;
 import com.zzk.filehelper.netty.message.MessageConfig;
 import com.zzk.filehelper.serialize.Serializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
+
+import static com.zzk.filehelper.network.NetworkConfig.MAGIC_NUMBER;
 
 /**
  * @author zzk
@@ -33,10 +36,11 @@ public class CommonEncoder extends MessageToByteEncoder<Message> {
     protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
         if (msg.getMessageType() == MessageConfig.FILE_MESSAGE) {
             // 处理文件内容发送的格式
+            encodeFileContentMessage(ctx, msg, out);
         } else {
             // 普通消息格式
             // 1. 4 字节的魔数
-            out.writeBytes(new byte[]{1, 2, 3, 4});
+            out.writeInt(MAGIC_NUMBER);
             // 4. 1 字节的指令类型
             out.writeByte(msg.getMessageType());
             // 2. 1 字节的版本
@@ -54,5 +58,22 @@ public class CommonEncoder extends MessageToByteEncoder<Message> {
             // 8. 写入内容
             out.writeBytes(bytes);
         }
+    }
+
+    private void encodeFileContentMessage(ChannelHandlerContext ctx, Message msg, ByteBuf out) {
+        // 强制转换
+        FileContentMessage fileContentMessage = (FileContentMessage) msg;
+        // 1. 4 字节的魔数
+        out.writeInt(MAGIC_NUMBER);
+        // 2. 1 字节的指令类型
+        out.writeByte(fileContentMessage.getMessageType());
+        // 3. 写入8字节的包序号
+        out.writeLong(fileContentMessage.getPacketNumber());
+        // 4. 写入8字节的包总数
+        out.writeLong(fileContentMessage.getTotalPackets());
+        // 5. 写入4字节的包内容长度
+        out.writeInt(fileContentMessage.getContentLength());
+        // 6. 写入包内容
+       out.writeBytes(fileContentMessage.getData());
     }
 }

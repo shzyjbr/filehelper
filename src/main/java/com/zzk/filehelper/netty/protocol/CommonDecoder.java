@@ -1,5 +1,7 @@
 package com.zzk.filehelper.netty.protocol;
 
+import com.zzk.filehelper.netty.message.FileContentMessage;
+import com.zzk.filehelper.netty.message.FileMetaMessage;
 import com.zzk.filehelper.netty.message.Message;
 import com.zzk.filehelper.netty.message.MessageConfig;
 import com.zzk.filehelper.network.FileConfig;
@@ -34,7 +36,7 @@ public class CommonDecoder extends ReplayingDecoder<Void> {
         int magicNum = in.readInt();
         // 校验魔术字
         if(magicNum != NetworkConfig.MAGIC_NUMBER) {
-            // 直接关闭该链接
+            // 直接关闭该通道
             ChannelFuture close = ctx.channel().close();
             close.addListener((ChannelFutureListener) channelFuture ->
                     System.out.println("关闭不安全链接:"+ channelFuture.channel().remoteAddress()));
@@ -44,15 +46,14 @@ public class CommonDecoder extends ReplayingDecoder<Void> {
 
         if (messageType == MessageConfig.FILE_MESSAGE) {
             // 如果是文件内容消息，根据文件内容格式来解析消息
-            parseFileMessage(in);
-            // 模拟修改文件保存目录
-            ServerManager.getInstance().setSaveDir("D:\\temp\\");
+            parseFileMessage(in,outList);
         } else {
             // 如果是普通消息，根据普通消息格式来解析消息
             Message message = parseNormalMessage(in, magicNum, messageType);
             outList.add(message);
         }
     }
+
 
     private static Message parseNormalMessage(ByteBuf in, int magicNum, byte messageType) {
         // 2. 1 字节的版本
@@ -81,28 +82,22 @@ public class CommonDecoder extends ReplayingDecoder<Void> {
         return message;
     }
 
-    private static void parseFileMessage(ByteBuf in) throws IOException {
-        // 文件消息格式 4字节魔术字 1字节消息类型 4字节序列号 4字节文件名长度 n字节文件名 4字节文件长度 剩余：文件内容
-        //  4 个字节序列号
-        int sequenceId = in.readInt();
-        // 4字节文件名长度
-        int filenameLen = in.readInt();
-        byte[] filenameBytes = new byte[filenameLen];
-        // filenameLen字节文件名
-        in.readBytes(filenameBytes);
-        String filename = new String(filenameBytes, StandardCharsets.UTF_8);
+    private static void parseFileMessage(ByteBuf in, List<Object> outList) throws IOException {
+        FileContentMessage fileContentMessage = new FileContentMessage();
+        long packetNumber = in.readLong();
+        fileContentMessage.setPacketNumber(packetNumber);
 
-        // 4字节文件长度
-        int fileContentLen = in.readInt();
-        // 获取内容的字节数组
-        byte[] bytes = new byte[fileContentLen];
-        // 读取内容
-        in.readBytes(bytes, 0, fileContentLen);
-        // todo 目前写死指定的路径
-        try (RandomAccessFile rw = new RandomAccessFile(ServerManager.getInstance().getSaveDir() + filename, "rw")) {
-            rw.write(bytes);
-        }
-        log.info("写入文件长度:{}", fileContentLen);
+        long totalPacket = in.readLong();
+        fileContentMessage.setTotalPackets(totalPacket);
+
+        int dataLength = in.readInt();
+        fileContentMessage.setContentLength(dataLength);
+
+        byte[] dataBytes = new byte[dataLength];
+        in.readBytes(dataBytes);
+        fileContentMessage.setData(dataBytes);
+        outList.add(fileContentMessage);
+
     }
 
 }
