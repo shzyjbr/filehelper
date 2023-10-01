@@ -26,7 +26,6 @@ public class FileServer {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
                         ChannelPipeline pipeline = ch.pipeline();
-                        // todo 加入文件接收功能
                         pipeline.addLast(new CommonDecoder());
                         pipeline.addLast(new CommonEncoder(serializer));
                         pipeline.addLast(new OptionRequestMessageHandler());
