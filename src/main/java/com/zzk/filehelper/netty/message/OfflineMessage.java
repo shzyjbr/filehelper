@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import static com.zzk.filehelper.netty.message.MessageConfig.OFFLINE_MESSAGE;
 
 /**
- * 一条离线消息
+ * 离线消息,离线消息没有对应的回复消息，因为离线不需要回复
  * @Author zhouzekun
  * @Date 2023/9/6 9:37
  */

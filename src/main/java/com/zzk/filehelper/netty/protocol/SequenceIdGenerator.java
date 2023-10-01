@@ -9,6 +9,6 @@ public class SequenceIdGenerator {
     private static final AtomicInteger id = new AtomicInteger(1);
 
     public static int nextId() {
-        return id.incrementAndGet();
+        return id.getAndIncrement();
     }
 }

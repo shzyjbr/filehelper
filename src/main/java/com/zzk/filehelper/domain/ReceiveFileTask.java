@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * 提供给接收文件的一端使用
@@ -18,6 +19,8 @@ import java.io.FileOutputStream;
 @AllArgsConstructor
 public class ReceiveFileTask {
 
+    private Integer id;
+
     private String fileName;
 
     private long fileSize;
@@ -25,4 +28,8 @@ public class ReceiveFileTask {
     private long receivedFileSize;
 
     private FileOutputStream fileOutputStream;
+
+    public void close() throws IOException {
+        fileOutputStream.close();
+    }
 }

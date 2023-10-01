@@ -32,7 +32,9 @@ public class FileServer {
                         pipeline.addLast(new OptionRequestMessageHandler());
                         pipeline.addLast(new OptionReplyMessageHandler());
                         pipeline.addLast(new FileMetaMessageHandler());
+                        pipeline.addLast(new FileMetaAckMessageHandler());
                         pipeline.addLast(new FileContentMessageHandler());
+                        pipeline.addLast(new FileContentAckMessageHandler());
                     }
                 });
 

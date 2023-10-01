@@ -14,6 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FileContentMessage extends Message{
+
+    /**
+     * 该任务的唯一id
+     */
+    private int id;
     /**
      * 当前是第几个包
      */
@@ -35,6 +40,6 @@ public class FileContentMessage extends Message{
     private byte[] data;
     @Override
     public int getMessageType() {
-        return MessageConfig.FILE_MESSAGE;
+        return MessageConfig.FILE_CONTENT_MESSAGE;
     }
 }

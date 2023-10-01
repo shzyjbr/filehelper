@@ -44,12 +44,20 @@ public class MessageConfig {
     /**
      * 文件内容消息
      */
-    public static final int FILE_MESSAGE = 5;
+    public static final int FILE_CONTENT_MESSAGE = 5;
 
     /**
      * 文件元信息消息，存着文件名长度，文件名，文件大小，总共分成几个包等信息
      */
     public static final int FILE_META_MESSAGE = 6;
+    /**
+     * 文件包确认消息
+     */
+    public static final int FILE_CONTENT_ACK_MESSAGE = 7;
+    /**
+     * 文件元数据确认消息
+     */
+    public static final int FILE_META_ACK_MESSAGE = 8;
 
 
     private static final Map<Integer, Class<? extends Message>> messageClasses = new HashMap<>();
@@ -60,6 +68,9 @@ public class MessageConfig {
         messageClasses.put(OPTION_REQUEST_MESSAGE, OptionRequestMessage.class);
         messageClasses.put(OPTION_REPLY_MESSAGE, OptionReplyMessage.class);
         messageClasses.put(OFFLINE_MESSAGE, OfflineMessage.class);
+        messageClasses.put(FILE_META_MESSAGE, FileMetaMessage.class);
+        messageClasses.put(FILE_META_ACK_MESSAGE, FileMetaAckMessage.class);
+        messageClasses.put(FILE_CONTENT_ACK_MESSAGE, FileContentAckMessage.class);
 
     }
 }

@@ -17,5 +17,9 @@ public interface FileConfig {
     int FILE_TYPE = 0;
 
 
+    /**
+     * 发送文件时的数据大小
+     */
+    int PACKET_SIZE = 1024 * 1024;
     String BASE_DIR = System.getProperty("user.home") + File.separator;
 }

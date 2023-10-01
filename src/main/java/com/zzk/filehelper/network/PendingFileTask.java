@@ -1,19 +1,22 @@
-package com.zzk.filehelper.netty.message;
+package com.zzk.filehelper.network;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @Author kelton
- * @Date 2023/9/26 23:55
- * @Version 1.0
+ * 发送文件排队任务，也就是待对端确认的文件
+ * @Author zhouzekun
+ * @Date 2023/10/1 10:21
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class FileMetaMessage extends Message{
+@AllArgsConstructor
+public class PendingFileTask {
 
+    /**
+     * 标识任务的唯一id
+     */
     private Integer id;
 
 
@@ -31,8 +34,4 @@ public class FileMetaMessage extends Message{
      * 分成了多少数据包
      */
     private long total;
-    @Override
-    public int getMessageType() {
-        return MessageConfig.FILE_META_MESSAGE;
-    }
 }

@@ -19,7 +19,7 @@ public class FileReceiveManager {
         fileOutputStreamMap.put(id, task);
     }
     //删除对应的outputStream
-    public static void remoeTask(ChannelId id) {
+    public static void removeTask(ChannelId id) {
         fileOutputStreamMap.remove(id);
     }
 

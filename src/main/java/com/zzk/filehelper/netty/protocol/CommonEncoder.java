@@ -11,18 +11,11 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import static com.zzk.filehelper.network.NetworkConfig.MAGIC_NUMBER;
 
 /**
- * @author zzk
- * @date 2021/12/8
- * description  通用编码器 （出站）
- * 自定义数据包还解决了TCP粘包拆包问题
- * 这里可以使用一个Message将RpcRequest和RpcResponse统一起来
- * 包格式:
- * magicCode :  4 bytes
- * packageType: 4 bytes
- * serializerCode:  4 bytes
- * length:      4 bytes
- * object:      bytes of the serialized object
+ *
+ * @Author  zhouzekun
+ * @Date 2023/10/1
  */
+
 
 public class CommonEncoder extends MessageToByteEncoder<Message> {
     private final Serializer serializer;
@@ -34,18 +27,18 @@ public class CommonEncoder extends MessageToByteEncoder<Message> {
 
     @Override
     protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
-        if (msg.getMessageType() == MessageConfig.FILE_MESSAGE) {
+        if (msg.getMessageType() == MessageConfig.FILE_CONTENT_MESSAGE) {
             // 处理文件内容发送的格式
             encodeFileContentMessage(ctx, msg, out);
         } else {
             // 普通消息格式
             // 1. 4 字节的魔数
             out.writeInt(MAGIC_NUMBER);
-            // 4. 1 字节的指令类型
+            // 2. 1 字节的指令类型
             out.writeByte(msg.getMessageType());
-            // 2. 1 字节的版本
+            // 3. 1 字节的版本
             out.writeByte(1);
-            // 3. 1 字节的序列化方式 jdk 0 , json 1
+            // 4. 1 字节的序列化方式 jdk 0 , json 1
             out.writeByte(com.zzk.filehelper.serialize.Serializer.JSON_SERIALIZER);
             // 5. 4 个字节序列号
             out.writeInt(1);
@@ -67,6 +60,8 @@ public class CommonEncoder extends MessageToByteEncoder<Message> {
         out.writeInt(MAGIC_NUMBER);
         // 2. 1 字节的指令类型
         out.writeByte(fileContentMessage.getMessageType());
+        // 任务id
+        out.writeInt(fileContentMessage.getId());
         // 3. 写入8字节的包序号
         out.writeLong(fileContentMessage.getPacketNumber());
         // 4. 写入8字节的包总数

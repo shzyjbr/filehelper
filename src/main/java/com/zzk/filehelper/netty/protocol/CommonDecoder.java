@@ -1,13 +1,10 @@
 package com.zzk.filehelper.netty.protocol;
 
 import com.zzk.filehelper.netty.message.FileContentMessage;
-import com.zzk.filehelper.netty.message.FileMetaMessage;
 import com.zzk.filehelper.netty.message.Message;
 import com.zzk.filehelper.netty.message.MessageConfig;
-import com.zzk.filehelper.network.FileConfig;
 import com.zzk.filehelper.network.NetworkConfig;
 import com.zzk.filehelper.serialize.Serializer;
-import com.zzk.filehelper.state.ServerManager;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
@@ -16,8 +13,6 @@ import io.netty.handler.codec.ReplayingDecoder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 
@@ -41,10 +36,10 @@ public class CommonDecoder extends ReplayingDecoder<Void> {
             close.addListener((ChannelFutureListener) channelFuture ->
                     System.out.println("关闭不安全链接:"+ channelFuture.channel().remoteAddress()));
         }
-        // 4. 1 字节的消息类型
+        // 2. 1 字节的消息类型
         byte messageType = in.readByte();
 
-        if (messageType == MessageConfig.FILE_MESSAGE) {
+        if (messageType == MessageConfig.FILE_CONTENT_MESSAGE) {
             // 如果是文件内容消息，根据文件内容格式来解析消息
             parseFileMessage(in,outList);
         } else {
@@ -56,9 +51,9 @@ public class CommonDecoder extends ReplayingDecoder<Void> {
 
 
     private static Message parseNormalMessage(ByteBuf in, int magicNum, byte messageType) {
-        // 2. 1 字节的版本
+        // 3. 1 字节的版本
         byte version = in.readByte();
-        // 3. 1 字节的序列化方式 jdk 0 , json 1
+        // 4. 1 字节的序列化方式 jdk 0 , json 1
         byte serializerCode = in.readByte(); // 0 或 1
         // 5. 4 个字节序列号
         int sequenceId = in.readInt();
@@ -84,6 +79,8 @@ public class CommonDecoder extends ReplayingDecoder<Void> {
 
     private static void parseFileMessage(ByteBuf in, List<Object> outList) throws IOException {
         FileContentMessage fileContentMessage = new FileContentMessage();
+        int id = in.readInt();
+        fileContentMessage.setId(id);
         long packetNumber = in.readLong();
         fileContentMessage.setPacketNumber(packetNumber);
 

@@ -2,8 +2,7 @@ package com.zzk.filehelper.state;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author zhouzekun
