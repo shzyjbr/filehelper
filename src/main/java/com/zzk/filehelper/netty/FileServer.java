@@ -39,7 +39,6 @@ public class FileServer {
                 });
 
         ChannelFuture f = b.bind(port).sync();
-        f.channel().closeFuture().sync();
     }
 
     public void shutdown() {
