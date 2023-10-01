@@ -1,5 +1,9 @@
 package com.zzk.filehelper;
 
+import com.google.common.eventbus.Subscribe;
+import com.zzk.filehelper.event.EventCenter;
+import com.zzk.filehelper.event.OptionRequestEvent;
+import com.zzk.filehelper.event.manager.UIManager;
 import com.zzk.filehelper.handler.ServerStatusHandler;
 import com.zzk.filehelper.netty.FileServer;
 import com.zzk.filehelper.netty.message.MessageConfig;
@@ -73,6 +77,7 @@ public class HelperApplication extends Application {
         System.out.println("启动文件监听服务器中...");
         fileServer = new FileServer();
         fileServer.run(NetworkConfig.FILE_PORT);
+        EventCenter.register(new UIManager());
     }
 
     @Override
@@ -93,6 +98,7 @@ public class HelperApplication extends Application {
 
     public static void main(String[] args) {
         System.out.println("launch main win");
+
         launch();
     }
 
