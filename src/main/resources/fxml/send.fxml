@@ -3,14 +3,14 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane style="-fx-background-color: white;" stylesheets="@../css/send.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane style="-fx-background-color: white;" stylesheets="@../css/send.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.SendController">
    <children>
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="630.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -24,76 +24,90 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <HBox>
+                  <StackPane>
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
                      <children>
-                        <AnchorPane prefHeight="65.0" prefWidth="165.0" styleClass="file-bg-region">
+                        <HBox fx:id="selectArea" alignment="CENTER" spacing="30.0" style="-fx-padding: 5;">
                            <children>
-                              <StackPane layoutX="70.0" layoutY="8.0" prefHeight="25.0" prefWidth="25.0">
-                                 <children>
-                                    <Region maxHeight="23.0" maxWidth="23.0" minHeight="23.0" minWidth="23.0" prefHeight="23.0" prefWidth="23.0" styleClass="file-icon-region" />
-                                 </children>
-                              </StackPane>
-                              <Label layoutX="66.0" layoutY="39.0" style="-fx-text-fill: #009688;" text="文件">
+                              <BorderPane onMouseClicked="#openFileChooserDialog" prefHeight="65.0" prefWidth="165.0">
+                                 <center>
+                                    <VBox alignment="CENTER" fillWidth="false" styleClass="file-bg-region">
+                                       <children>
+                                          <StackPane prefHeight="25.0" prefWidth="25.0">
+                                             <children>
+                                                <Region maxHeight="23.0" maxWidth="23.0" minHeight="23.0" minWidth="23.0" prefHeight="23.0" prefWidth="23.0" styleClass="file-icon-region" />
+                                             </children>
+                                          </StackPane>
+                                          <Label style="-fx-text-fill: #009688;" text="文件">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </center>
+                              </BorderPane>
+                              <BorderPane prefHeight="65.0" prefWidth="165.0">
+                                 <center>
+                                    <VBox alignment="CENTER" styleClass="file-bg-region">
+                                       <children>
+                                          <StackPane prefHeight="25.0" prefWidth="25.0">
+                                             <children>
+                                                <Region maxHeight="23.0" maxWidth="23.0" minHeight="23.0" minWidth="23.0" prefHeight="23.0" prefWidth="23.0" styleClass="text-icon-region" />
+                                             </children>
+                                          </StackPane>
+                                          <Label style="-fx-text-fill: #009688;" text="文本">
+                                             <font>
+                                                <Font size="16.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </VBox>
+                                 </center>
+                              </BorderPane>
+                           </children>
+                        </HBox>
+                        <VBox fx:id="selectedResources" prefHeight="100.0" prefWidth="480.0" visible="false" StackPane.alignment="CENTER_LEFT">
+                           <children>
+                              <Label fx:id="fileCount" prefHeight="25.0" text="文件：">
                                  <font>
-                                    <Font size="16.0" />
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="fileSize" prefHeight="25.0" text="大小：">
+                                 <font>
+                                    <Font size="15.0" />
                                  </font>
                               </Label>
                            </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <HBox.margin>
-                              <Insets right="20.0" />
-                           </HBox.margin>
-                        </AnchorPane>
-                        <AnchorPane prefHeight="65.0" prefWidth="165.0" styleClass="file-bg-region">
-                           <children>
-                              <StackPane layoutX="70.0" layoutY="8.0" prefHeight="25.0" prefWidth="25.0">
-                                 <children>
-                                    <Region maxHeight="23.0" maxWidth="23.0" minHeight="23.0" minWidth="23.0" prefHeight="23.0" prefWidth="23.0" styleClass="text-icon-region" />
-                                 </children>
-                              </StackPane>
-                              <Label layoutX="69.0" layoutY="37.0" style="-fx-text-fill: #009688;" text="文本">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                           <opaqueInsets>
-                              <Insets right="10.0" />
-                           </opaqueInsets>
-                        </AnchorPane>
+                        </VBox>
                      </children>
-                  </HBox>
-                  <AnchorPane>
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
+                  </StackPane>
+                  <HBox alignment="CENTER_LEFT" spacing="10.0">
                      <children>
-                        <Label layoutY="6.0" text="附近的设备">
+                        <Label text="附近的设备">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <StackPane layoutX="100.0" prefHeight="36.0" prefWidth="36.0" styleClass="edit-bg">
+                        <StackPane prefHeight="40.0" prefWidth="40.0" styleClass="loop-bg">
+                           <children>
+                              <Region maxHeight="25.0" maxWidth="20.0" prefHeight="25.0" prefWidth="20.0" styleClass="loop-icon" />
+                           </children>
+                        </StackPane>
+                        <StackPane prefHeight="36.0" prefWidth="36.0" styleClass="edit-bg">
                            <children>
                               <Region maxHeight="21.0" maxWidth="21.0" prefHeight="21.0" prefWidth="21.0" styleClass="edit-icon" />
                            </children>
                         </StackPane>
                      </children>
-                  </AnchorPane>
+                  </HBox>
                   <HBox>
                      <children>
                         <AnchorPane prefHeight="40.0" prefWidth="50.0">
                            <children>
-                              <StackPane prefHeight="40.0" prefWidth="40.0" styleClass="loop-bg">
-                                 <children>
-                                    <Region maxHeight="25.0" maxWidth="20.0" prefHeight="25.0" prefWidth="20.0" styleClass="loop-icon" />
-                                 </children>
-                              </StackPane>
                               <HBox alignment="CENTER" layoutX="80.0" styleClass="loop-bg" AnchorPane.leftAnchor="80.0">
                                  <children>
                                     <StackPane prefHeight="40.0" prefWidth="40.0">

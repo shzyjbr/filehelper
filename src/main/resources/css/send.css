@@ -26,8 +26,11 @@
 }
 
 .loop-bg {
-    -fx-background-color: #f2f9f8;
     -fx-background-radius: 12;
+}
+.loop-bg:hover {
+    -fx-background-color: #f5f5f5;
+    /*-fx-background-radius: 12;*/
 }
 
 .edit-icon {
@@ -38,7 +41,7 @@
 }
 
 .edit-bg {
-    -fx-background-radius: 20;
+    -fx-background-radius: 12;
 }
 
 .edit-bg:hover {

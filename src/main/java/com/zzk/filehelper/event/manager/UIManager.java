@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Data
 public class UIManager {
 
-    @Subscribe
-    private void handleEvent(OptionRequestMessage optionRequestEvent) {
-        System.out.println("UIManager收到事件：" + optionRequestEvent);
-        System.out.println(Thread.currentThread().getName());
-    }
+//    @Subscribe
+//    private void handleEvent(OptionRequestMessage optionRequestEvent) {
+//        System.out.println("UIManager收到事件：" + optionRequestEvent);
+//        System.out.println(Thread.currentThread().getName());
+//    }
 }

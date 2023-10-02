@@ -8,6 +8,7 @@ import com.zzk.filehelper.handler.ServerStatusHandler;
 import com.zzk.filehelper.netty.FileServer;
 import com.zzk.filehelper.netty.message.MessageConfig;
 import com.zzk.filehelper.netty.message.OfflineMessage;
+import com.zzk.filehelper.netty.message.OptionRequestMessage;
 import com.zzk.filehelper.network.NetworkConfig;
 import com.zzk.filehelper.serialize.Serializer;
 import com.zzk.filehelper.state.SceneManager;
@@ -77,7 +78,8 @@ public class HelperApplication extends Application {
         System.out.println("启动文件监听服务器中...");
         fileServer = new FileServer();
         fileServer.run(NetworkConfig.FILE_PORT);
-        EventCenter.register(new UIManager());
+//        EventCenter.register(new UIManager());
+        EventCenter.register(this);
     }
 
     @Override
@@ -147,5 +149,11 @@ public class HelperApplication extends Application {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
+    }
+
+    @Subscribe
+    private void handleEvent(OptionRequestMessage optionRequestEvent) {
+        System.out.println("UIManager收到事件：" + optionRequestEvent);
+        System.out.println(Thread.currentThread().getName());
     }
 }

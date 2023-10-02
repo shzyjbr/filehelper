@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<HBox alignment="CENTER" minHeight="50.0" prefHeight="50.0" stylesheets="@../../css/component/displayFile.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label maxHeight="35.0" prefHeight="35.0" prefWidth="60.0" text="文件名">
+         <font>
+            <Font size="15.0" />
+         </font>
+         <HBox.margin>
+            <Insets right="5.0" />
+         </HBox.margin>
+      </Label>
+      <StackPane alignment="CENTER_RIGHT" maxHeight="35.0" prefHeight="35.0" prefWidth="40.0" styleClass="file-stackPane">
+         <children>
+            <Region prefHeight="30.0" prefWidth="35.0">
+               <StackPane.margin>
+                  <Insets right="5.0" />
+               </StackPane.margin>
+            </Region>
+         </children>
+      </StackPane>
+   </children>
+</HBox>
