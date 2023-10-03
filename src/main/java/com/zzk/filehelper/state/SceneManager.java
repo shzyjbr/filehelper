@@ -1,6 +1,7 @@
 package com.zzk.filehelper.state;
 
 import javafx.animation.Animation;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 import lombok.Data;
@@ -23,6 +24,11 @@ public class SceneManager {
 
     private Parent histortMainPane;
 
+    private Node fileDetailLyout;
+
+    /**
+     * 主舞台
+     */
     public Stage mainStage;
 
     private HashMap<String, Animation> animations;

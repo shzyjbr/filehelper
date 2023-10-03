@@ -11,11 +11,13 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
+import lombok.Data;
 
 /**
  * @Author zhouzekun
  * @Date 2023/10/2 15:35
  */
+@Data
 public class MyHbox extends HBox implements Cloneable {
 
     private Label label;
@@ -23,6 +25,8 @@ public class MyHbox extends HBox implements Cloneable {
     private StackPane stackPane;
 
     private Region region;
+
+    private Button btn;
 
     public MyHbox(String filename) {
         super();
@@ -36,7 +40,7 @@ public class MyHbox extends HBox implements Cloneable {
         svg.setScaleX(scale);
         svg.setScaleY(scale);
 
-        Button btn = new Button();
+        btn = new Button();
         btn.setGraphic(svg);
         btn.setMaxSize(35, 35);
         btn.setMinSize(35, 35);
@@ -60,25 +64,32 @@ public class MyHbox extends HBox implements Cloneable {
                             "-fx-background-radius:10;"+
                             "-fx-border-width:0;");
         });
-        HBox.setHgrow(label, Priority.ALWAYS);
-        this.getChildren().addAll(label, btn);
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        this.getChildren().addAll(label,spacer, btn);
+//        this.setMinWidth(500);
         this.setAlignment(Pos.CENTER_LEFT);
-        this.setMinWidth(500);
-        this.setMaxWidth(500);
         this.setStyle(
                 "-fx-background-color:#f2f9f8;"+
                         "-fx-padding:5px;"+
-                        "-fx-background-radius:10;"+
+                        "-fx-background-radius:15;"+
                         "-fx-border-width:0;");
-        btn.setOnMouseClicked(event -> {
-            Parent parent = btn.getParent();
-            VBox vBox = (VBox) parent.getParent();
-            vBox.getChildren().remove(parent);
-            FileContainer.instance.remove(filename);
-            FileContainer.instance.print();
+//        this.setMaxWidth(Double.MAX_VALUE);
+        // 设置Hbox的样式
+        this.setOnMouseEntered(event -> {
+            this.setStyle(
+                    "-fx-background-color:#cce8e2;"+
+                            "-fx-padding:5px;"+
+                            "-fx-background-radius:15;"+
+                            "-fx-border-width:0;");
         });
-
-
+        this.setOnMouseExited(event -> {
+            this.setStyle(
+                    "-fx-background-color:#f2f9f8;"+
+                            "-fx-padding:5px;"+
+                            "-fx-background-radius:15;"+
+                            "-fx-border-width:0;");
+        });
     }
 
     public void setText(String filename) {

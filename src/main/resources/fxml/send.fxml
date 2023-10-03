@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-background-color: white;" stylesheets="@../css/send.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.SendController">
+<AnchorPane style="-fx-background-color: white;" stylesheets="@../css/send.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.SendController">
    <children>
       <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="630.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -51,7 +51,7 @@
                               </BorderPane>
                               <BorderPane prefHeight="65.0" prefWidth="165.0">
                                  <center>
-                                    <VBox alignment="CENTER" styleClass="file-bg-region">
+                                    <VBox alignment="CENTER" onMouseClicked="#showOtherPage" styleClass="file-bg-region">
                                        <children>
                                           <StackPane prefHeight="25.0" prefWidth="25.0">
                                              <children>
@@ -71,16 +71,20 @@
                         </HBox>
                         <VBox fx:id="selectedResources" prefHeight="100.0" prefWidth="480.0" visible="false" StackPane.alignment="CENTER_LEFT">
                            <children>
-                              <Label fx:id="fileCount" prefHeight="25.0" text="文件：">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="fileSize" prefHeight="25.0" text="大小：">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
+                              <AnchorPane>
+                                 <children>
+                                    <Label fx:id="fileCount" prefHeight="25.0" text="文件：" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="fileSize" layoutY="25.600000381469727" prefHeight="25.0" text="大小：" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="0.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </VBox>
                      </children>

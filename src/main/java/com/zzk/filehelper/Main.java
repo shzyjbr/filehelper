@@ -2,7 +2,6 @@ package com.zzk.filehelper;
 
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;

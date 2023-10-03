@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="fileDetailPane" stylesheets="@../../css/component/fileDetail.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.FileDetailController">
+   <children>
+      <StackPane onMouseClicked="#goBackToMain" prefHeight="30.0" prefWidth="30.0" styleClass="back-stackPane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <Region maxHeight="15.0" maxWidth="15.0" prefHeight="15.0" prefWidth="15.0" />
+         </children>
+      </StackPane>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+         <center>
+            <VBox fx:id="fileDetailVBox" alignment="TOP_CENTER" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" text="文件：3   大小：10MB" VBox.vgrow="ALWAYS" />
+                  <ListView fx:id="fileListView" />
+               </children>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </VBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

@@ -11,4 +11,5 @@ open module com.zzk.filehelper {
     requires com.alibaba.fastjson2;
     requires org.apache.commons.lang3;
     exports com.zzk.filehelper;
+    exports com.zzk.filehelper.controller;
 }

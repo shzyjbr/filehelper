@@ -1,4 +1,4 @@
-package com.zzk.filehelper;
+package com.zzk.filehelper.controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -75,10 +75,6 @@ public class ReceiveController {
     @FXML
     void showHistoryWin(MouseEvent event) {
 
-        System.out.println("historyStackPane," +( historyStackPane == null));
-        System.out.println("showAnim," +( showAnim == null));
-        System.out.println("hideAnim," +( hideAnim == null));
-        // showAnim已经注入
         //    展示历史记录面板
         // historyStackPane.setTranslateX(300);
         historyMainPane.setVisible(true);

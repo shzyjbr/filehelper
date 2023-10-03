@@ -1,6 +1,7 @@
 package com.zzk.filehelper.state;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.ObservableSet;
 
 import java.io.File;
@@ -16,7 +17,7 @@ public class FileContainer {
     /**
      * 保存选中的文件
      */
-    private static final ObservableSet<String> files = FXCollections.observableSet();
+    private static final ObservableList<String> files = FXCollections.observableArrayList();
 
     public int fileCount = 0;
 
@@ -26,7 +27,7 @@ public class FileContainer {
 
     }
 
-    public ObservableSet<String> getFiles () {
+    public ObservableList<String> getFiles () {
         return files;
     }
 

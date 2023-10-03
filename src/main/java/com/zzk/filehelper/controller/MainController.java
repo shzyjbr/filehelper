@@ -1,4 +1,4 @@
-package com.zzk.filehelper;
+package com.zzk.filehelper.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,7 +9,6 @@ import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
