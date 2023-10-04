@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="fileDetailPane" stylesheets="@../../css/component/fileDetail.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.FileDetailController">
    <children>
@@ -20,8 +21,11 @@
          <center>
             <VBox fx:id="fileDetailVBox" alignment="TOP_CENTER" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label alignment="CENTER" text="文件：3   大小：10MB" VBox.vgrow="ALWAYS" />
-                  <ListView fx:id="fileListView" />
+                  <Label fx:id="statisticsLabel" alignment="CENTER" text="文件：0   大小：0MB" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <ListView fx:id="fileListView" VBox.vgrow="ALWAYS" />
                </children>
                <cursor>
                   <Cursor fx:constant="DEFAULT" />
