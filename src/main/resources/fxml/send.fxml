@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
@@ -31,47 +30,39 @@
                         <Insets top="10.0" />
                      </VBox.margin>
                      <children>
-                        <HBox fx:id="selectArea" alignment="CENTER" spacing="30.0" style="-fx-padding: 5;" visible="false">
+                        <HBox fx:id="selectArea" alignment="CENTER" spacing="30.0" style="-fx-padding: 5;">
                            <children>
-                              <BorderPane onMouseClicked="#openFileChooserDialog" prefHeight="65.0" prefWidth="165.0">
-                                 <center>
-                                    <VBox alignment="CENTER" fillWidth="false" styleClass="file-bg-region">
+                              <VBox alignment="CENTER" fillWidth="false" onMouseClicked="#openFileChooserDialog" prefHeight="150.0" prefWidth="150.0" styleClass="file-bg-region">
+                                 <children>
+                                    <StackPane prefHeight="25.0" prefWidth="25.0">
                                        <children>
-                                          <StackPane prefHeight="25.0" prefWidth="25.0">
-                                             <children>
-                                                <Region maxHeight="23.0" maxWidth="23.0" minHeight="23.0" minWidth="23.0" prefHeight="23.0" prefWidth="23.0" styleClass="file-icon-region" />
-                                             </children>
-                                          </StackPane>
-                                          <Label style="-fx-text-fill: #009688;" text="文件">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
+                                          <Region maxHeight="23.0" maxWidth="23.0" minHeight="23.0" minWidth="23.0" prefHeight="23.0" prefWidth="23.0" styleClass="file-icon-region" />
                                        </children>
-                                    </VBox>
-                                 </center>
-                              </BorderPane>
-                              <BorderPane prefHeight="65.0" prefWidth="165.0">
-                                 <center>
-                                    <VBox alignment="CENTER" onMouseClicked="#showOtherPage" styleClass="file-bg-region">
+                                    </StackPane>
+                                    <Label style="-fx-text-fill: #009688;" text="文件">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" onMouseClicked="#showOtherPage" prefHeight="150.0" prefWidth="150.0" styleClass="file-bg-region">
+                                 <children>
+                                    <StackPane prefHeight="25.0" prefWidth="25.0">
                                        <children>
-                                          <StackPane prefHeight="25.0" prefWidth="25.0">
-                                             <children>
-                                                <Region maxHeight="23.0" maxWidth="23.0" minHeight="23.0" minWidth="23.0" prefHeight="23.0" prefWidth="23.0" styleClass="text-icon-region" />
-                                             </children>
-                                          </StackPane>
-                                          <Label style="-fx-text-fill: #009688;" text="文本">
-                                             <font>
-                                                <Font size="16.0" />
-                                             </font>
-                                          </Label>
+                                          <Region maxHeight="23.0" maxWidth="23.0" minHeight="23.0" minWidth="23.0" prefHeight="23.0" prefWidth="23.0" styleClass="text-icon-region" />
                                        </children>
-                                    </VBox>
-                                 </center>
-                              </BorderPane>
+                                    </StackPane>
+                                    <Label style="-fx-text-fill: #009688;" text="文本">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
-                        <VBox fx:id="selectedResources" prefWidth="480.0" spacing="5.0" StackPane.alignment="CENTER_LEFT">
+                        <VBox fx:id="selectedResources" prefWidth="480.0" spacing="5.0" visible="false" StackPane.alignment="CENTER_LEFT">
                            <children>
                               <AnchorPane>
                                  <children>

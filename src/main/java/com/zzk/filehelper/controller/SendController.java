@@ -8,6 +8,7 @@ import com.zzk.filehelper.event.EventCenter;
 import com.zzk.filehelper.event.ShowSelectedFilesEvent;
 import com.zzk.filehelper.state.FileContainer;
 import com.zzk.filehelper.state.SceneManager;
+import com.zzk.filehelper.util.FileUtil;
 import javafx.animation.*;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -23,6 +24,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -114,16 +117,7 @@ public class SendController {
 
     @FXML
     void openFileChooserDialog(MouseEvent event) throws IOException {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Files", "*.*"));
-        List<File> selectedFile = fileChooser.showOpenMultipleDialog(SceneManager.instance.mainStage);
-        if (selectedFile != null && !selectedFile.isEmpty()) {
-            for (File file : selectedFile) {
-                FileContainer.instance.addFile(file.getCanonicalPath());
-            }
-        }
+        FileUtil.showFileChooserDialog();
     }
 
 
@@ -185,18 +179,62 @@ public class SendController {
     /**
      * 打开模态窗口
      */
-    public void openModalWindow() {
-        Stage modalStage = new Stage();
-        modalStage.initModality(Modality.APPLICATION_MODAL);
-        modalStage.initStyle(StageStyle.UTILITY);
+    public void openModalWindow() throws IOException {
 
-        Button closeButton = new Button("Close");
-        closeButton.setOnAction(event -> modalStage.close());
+        // 遮罩层
+        Stage maskStage = SceneManager.instance.getMaskStage();
+        if (maskStage == null) {
+            // 创建遮罩层的 Stage
+            maskStage = new Stage();
+            maskStage.initOwner(SceneManager.instance.mainStage);
+            maskStage.initModality(Modality.APPLICATION_MODAL);
+            maskStage.initStyle(StageStyle.TRANSPARENT);
 
-        VBox modalRoot = new VBox(closeButton);
-        Scene modalScene = new Scene(modalRoot, 200, 150);
+            // 创建遮罩层的 Scene
+            StackPane maskLayout = new StackPane();
+            maskLayout.setStyle("-fx-background-color: rgba(242, 249, 248, 0.5);");
 
-        modalStage.setScene(modalScene);
+            Scene maskScene = new Scene(maskLayout);
+            maskScene.setFill(Color.TRANSPARENT);
+            maskStage.setScene(maskScene);
+            SceneManager.instance.setMaskStage(maskStage);
+            // maskLayout.visibleProperty().bind(SceneManager.instance.getMainStage().getScene().getWindow().showingProperty());
+
+            SceneManager.instance.getMainStage().widthProperty().addListener(e -> {
+                maskLayout.setPrefSize(SceneManager.instance.getMainStage().getWidth(),
+                        SceneManager.instance.getMainStage().getHeight());
+                // 使模态窗口始终在主窗口中居中
+                SceneManager.instance.getModalStage().setX(SceneManager.instance.getMainStage().getX()+SceneManager.instance.getMainStage().getWidth()/2-SceneManager.instance.getModalStage().getWidth()/2);
+            });
+            SceneManager.instance.getMainStage().heightProperty().addListener(e -> {
+                maskLayout.setPrefSize(SceneManager.instance.getMainStage().getWidth(),
+                        SceneManager.instance.getMainStage().getHeight());
+                SceneManager.instance.getModalStage().setY(SceneManager.instance.getMainStage().getY()+SceneManager.instance.getMainStage().getHeight()/2-SceneManager.instance.getModalStage().getHeight()/2);
+            });
+        }
+
+
+        // modalStage.initStyle(StageStyle.TRANSPARENT);
+        Stage modalStage = SceneManager.instance.getModalStage();
+        if (modalStage == null) {
+            // 第一次加载初始化modalScene
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            URL url = fxmlLoader.getClassLoader().getResource("fxml/component/addMore.fxml");
+            fxmlLoader.setLocation(url);
+            StackPane stackPane = fxmlLoader.load();
+
+            Scene modalScene = new Scene(stackPane,400,250);
+            modalStage = new Stage();
+            modalStage.setScene(modalScene);
+            // 去除状态栏
+            modalStage.initStyle(StageStyle.UNDECORATED);
+            modalScene.setFill(Color.TRANSPARENT);
+            modalStage.initModality(Modality.APPLICATION_MODAL);
+            SceneManager.instance.setModalStage(modalStage);
+        }
+        modalStage.setX(SceneManager.instance.getMainStage().getX()+SceneManager.instance.getMainStage().getWidth()/2-SceneManager.instance.getModalStage().getWidth()/2);
+        modalStage.setY(SceneManager.instance.getMainStage().getY()+SceneManager.instance.getMainStage().getHeight()/2-SceneManager.instance.getModalStage().getHeight()/2);
+        maskStage.show();
         modalStage.showAndWait();
     }
 

@@ -208,6 +208,7 @@ public class MainController {
         primaryStage.heightProperty().addListener(((observableValue, oldValue, newValue) -> {
             System.out.println(oldValue);
             System.out.println(newValue);
+
         }));
     }
 
