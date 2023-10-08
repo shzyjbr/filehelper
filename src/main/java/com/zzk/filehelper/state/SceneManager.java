@@ -21,7 +21,7 @@ public class SceneManager {
 
     private Parent mainPane;
 
-    private Parent historyPane;
+    private Node historyPane;
 
     private Parent histortMainPane;
 
@@ -40,7 +40,7 @@ public class SceneManager {
     /**
      * 主舞台
      */
-    public Stage mainStage;
+    private Stage mainStage;
 
     private HashMap<String, Animation> animations;
 

@@ -1,4 +1,4 @@
-package com.zzk.filehelper.controller;
+package com.zzk.filehelper.controller.component;
 
 import com.google.common.eventbus.Subscribe;
 import com.zzk.filehelper.component.CustomListCell;

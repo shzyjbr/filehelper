@@ -1,148 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.leewyatt.rxcontrols.controls.RXCarousel?>
+<?import com.leewyatt.rxcontrols.controls.RXToggleButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane stylesheets="@../css/mainPane.css" xmlns="http://javafx.com/javafx/20.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.MainController">
-    <center>
-        <StackPane fx:id="mainStackPane">
-            <children>
-                <AnchorPane fx:id="masterPane" prefHeight="560.0" prefWidth="880.0">
-                    <children>
-                        <AnchorPane id="left-main-pane" prefHeight="200.0" prefWidth="250.0" styleClass="left-main-pane"
-                                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                    AnchorPane.topAnchor="0.0">
-                            <children>
-                                <Label alignment="CENTER" prefHeight="100.0" stylesheets="@../css/mainPane.css"
-                                       text="File Helper" textAlignment="CENTER" AnchorPane.leftAnchor="0.0"
-                                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                    <font>
-                                        <Font size="36.0"/>
-                                    </font>
-                                </Label>
-                                <AnchorPane fx:id="receivePane" maxHeight="40.0" onMouseReleased="#receiveActive"
-                                            prefHeight="40.0" prefWidth="200.0" styleClass="receivePane"
-                                            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                            AnchorPane.topAnchor="100.0">
-                                    <children>
-                                        <StackPane fx:id="receiveStackPane" maxHeight="35.0" prefHeight="35.0"
-                                                   prefWidth="60.0" styleClass="wifi-stackPane"
-                                                   AnchorPane.bottomAnchor="2.5" AnchorPane.leftAnchor="10.0"
-                                                   AnchorPane.topAnchor="2.5">
-                                            <children>
-                                                <Region fx:id="wifiRegion" maxHeight="20.0" maxWidth="20.0"
-                                                        prefHeight="20.0" prefWidth="20.0"/>
-                                            </children>
-                                        </StackPane>
-                                        <Label contentDisplay="CENTER" text="接收" textAlignment="CENTER"
-                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="80.0"
-                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <padding>
-                                                <Insets left="10.0"/>
-                                            </padding>
-                                        </Label>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane fx:id="sendPane" maxHeight="40.0" onMouseReleased="#sendActivte"
-                                            prefHeight="40.0" styleClass="sendPane" AnchorPane.leftAnchor="0.0"
-                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="140.0">
-                                    <children>
-                                        <StackPane fx:id="sendStackPane" maxHeight="35.0" prefHeight="35.0"
-                                                   prefWidth="60.0" styleClass="send-stackPane"
-                                                   AnchorPane.bottomAnchor="2.5" AnchorPane.leftAnchor="10.0"
-                                                   AnchorPane.topAnchor="2.5">
-                                            <children>
-                                                <Region fx:id="sendRegion" maxHeight="20.0" maxWidth="20.0"
-                                                        prefHeight="20.0" prefWidth="20.0"/>
-                                            </children>
-                                        </StackPane>
-                                        <Label contentDisplay="CENTER" text="发送" textAlignment="CENTER"
-                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="80.0"
-                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <padding>
-                                                <Insets left="10.0"/>
-                                            </padding>
-                                        </Label>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane fx:id="settingPane" maxHeight="40.0" onMouseReleased="#settingActive"
-                                            prefHeight="40.0" styleClass="settingPane" AnchorPane.leftAnchor="0.0"
-                                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="180.0">
-                                    <children>
-                                        <StackPane fx:id="settingStackPane" maxHeight="35.0" prefHeight="35.0"
-                                                   prefWidth="60.0" styleClass="setting-stackPane"
-                                                   AnchorPane.bottomAnchor="2.5" AnchorPane.leftAnchor="10.0"
-                                                   AnchorPane.topAnchor="2.5">
-                                            <children>
-                                                <Region fx:id="settingRegion" maxHeight="20.0" maxWidth="20.0"
-                                                        prefHeight="20.0" prefWidth="20.0"/>
-                                            </children>
-                                        </StackPane>
-                                        <Label contentDisplay="CENTER" text="设置" textAlignment="CENTER"
-                                               AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="80.0"
-                                               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <padding>
-                                                <Insets left="10.0"/>
-                                            </padding>
-                                        </Label>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </AnchorPane>
-                        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;"
-                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0"
-                              AnchorPane.topAnchor="0.0"/>
-                        <StackPane prefHeight="150.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
-                                   AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="0.0"
-                                   AnchorPane.topAnchor="0.0">
-                            <children>
-                                <fx:include fx:id="reveiveMainPane" source="receive.fxml"/>
-                                <fx:include fx:id="sendMainPane" source="send.fxml"/>
-                                <fx:include fx:id="settingMainPane" source="setting.fxml"/>
-                            </children>
-                        </StackPane>
-                    </children>
-                </AnchorPane>
-                <AnchorPane fx:id="histortMainPane" prefHeight="560.0" prefWidth="880.0"
-                            xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
-                    <children>
-                        <AnchorPane fx:id="sliderPane" prefHeight="200.0" prefWidth="880.0" styleClass="slider-pane"
-                                    stylesheets="@../css/history.css" translateX="880.0" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <children>
-                                <AnchorPane fx:id="topBar" maxHeight="60.0" prefHeight="60.0" styleClass="topBar">
-                                    <children>
-                                        <StackPane fx:id="backStackPane" maxHeight="40.0" maxWidth="40.0"
-                                                   onMouseReleased="#backToMain" prefHeight="150.0" prefWidth="200.0"
-                                                   styleClass="backStackPane" AnchorPane.leftAnchor="20.0"
-                                                   AnchorPane.topAnchor="10.0">
-                                            <children>
-                                                <Region maxHeight="20.0" maxWidth="20.0" prefHeight="20.0"
-                                                        prefWidth="20.0"/>
-                                            </children>
-                                        </StackPane>
-                                        <Label alignment="CENTER" contentDisplay="CENTER" maxHeight="40.0"
-                                               prefHeight="40.0" text="历史" textAlignment="CENTER"
-                                               AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="10.0">
-                                            <font>
-                                                <Font name="Microsoft YaHei" size="22.0"/>
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </AnchorPane>
-                            </children>
-                        </AnchorPane>
-                    </children>
-                </AnchorPane>
 
-            </children>
-        </StackPane>
-    </center>
-</BorderPane>
+<StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.MainController">
+   <children>
+      <BorderPane fx:id="masterPane" prefHeight="660.0" prefWidth="880.0" style="-fx-background-color: white;" stylesheets="@../css/mainPane.css">
+          <center>
+            <RXCarousel fx:id="mainCarousel" arrowDisplayMode="HIDE" autoSwitch="false" hoverPause="false" navDisplayMode="HIDE" prefHeight="660.0" prefWidth="660.0" style="-fx-border-width: 0;" styleClass="main-pane" />
+          </center>
+         <left>
+                  <AnchorPane id="left-main-pane" styleClass="left-main-pane" BorderPane.alignment="CENTER">
+                      <children>
+                          <Label alignment="CENTER" prefHeight="80.0" prefWidth="220.0" stylesheets="@../css/mainPane.css" text="File Helper" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <font>
+                                  <Font name="Microsoft YaHei" size="36.0" />
+                              </font>
+                          </Label>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="220.0" spacing="5.0" styleClass="box-nav" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="80.0">
+                     <children>
+                        <RXToggleButton alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="220.0" text="接收">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="navGroup" />
+                           </toggleGroup>
+                           <graphic>
+                              <StackPane prefHeight="30.0" prefWidth="30.0" styleClass="wifi-stackPane">
+                                 <children>
+                                    <Region prefHeight="20.0" prefWidth="20.0" StackPane.alignment="CENTER" />
+                                 </children>
+                              </StackPane>
+                           </graphic>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </RXToggleButton>
+                        <RXToggleButton alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="220.0" text="发送" toggleGroup="$navGroup">
+                           <graphic>
+                              <StackPane prefHeight="30.0" prefWidth="30.0" styleClass="send-stackPane">
+                                 <children>
+                                    <Region prefHeight="30.0" prefWidth="30.0" />
+                                 </children>
+                              </StackPane>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </RXToggleButton>
+                        <RXToggleButton alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="220.0" styleClass="setting-stackPane" text="设置" toggleGroup="$navGroup">
+                           <graphic>
+                              <StackPane prefHeight="30.0" prefWidth="30.0" styleClass="setting-stackPane">
+                                 <children>
+                                    <Region prefHeight="30.0" prefWidth="30.0" />
+                                 </children>
+                              </StackPane>
+                           </graphic>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </RXToggleButton>
+                     </children>
+                  </VBox>
+                      </children>
+                  </AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
+</StackPane>

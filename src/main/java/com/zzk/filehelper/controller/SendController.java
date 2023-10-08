@@ -186,7 +186,7 @@ public class SendController {
         if (maskStage == null) {
             // 创建遮罩层的 Stage
             maskStage = new Stage();
-            maskStage.initOwner(SceneManager.instance.mainStage);
+            maskStage.initOwner(SceneManager.instance.getMainStage());
             maskStage.initModality(Modality.APPLICATION_MODAL);
             maskStage.initStyle(StageStyle.TRANSPARENT);
 

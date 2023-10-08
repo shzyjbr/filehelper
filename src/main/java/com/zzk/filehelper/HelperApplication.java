@@ -44,10 +44,9 @@ public class HelperApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        SceneManager.instance.mainStage = primaryStage;
+
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
-        SceneManager.instance.setMainPane(root);
 
 
         scene = new Scene(root, null);
@@ -57,16 +56,8 @@ public class HelperApplication extends Application {
         primaryStage.setTitle("文件传输助手");
         primaryStage.show();
 
-
-        // scene.setOnMousePressed(event -> {
-        //     offsetX = event.getSceneX();
-        //     offsetY = event.getSceneY();
-        // });
-        //
-        // scene.setOnMouseDragged(event -> {
-        //     primaryStage.setX(event.getScreenX()-offsetX);
-        //     primaryStage.setY(event.getScreenY()-offsetY);
-        // });
+        SceneManager.instance.setMainPane(root);
+        SceneManager.instance.setMaskStage(primaryStage);
 
     }
 
@@ -78,7 +69,6 @@ public class HelperApplication extends Application {
         System.out.println("启动文件监听服务器中...");
         fileServer = new FileServer();
         fileServer.run(NetworkConfig.FILE_PORT);
-//        EventCenter.register(new UIManager());
         EventCenter.register(this);
     }
 

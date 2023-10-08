@@ -1,4 +1,4 @@
-package com.zzk.filehelper.controller;
+package com.zzk.filehelper.controller.component;
 
 import com.zzk.filehelper.state.SceneManager;
 import com.zzk.filehelper.util.FileUtil;

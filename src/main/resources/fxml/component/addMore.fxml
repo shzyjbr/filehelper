@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<StackPane stylesheets="@../../css/component/addMore.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.AddMoreController">
+<StackPane stylesheets="@../../css/component/addMore.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.component.AddMoreController">
    <children>
       <Region prefHeight="250.0" prefWidth="400.0" styleClass="backgroundRegion" />
       <VBox prefHeight="250.0" prefWidth="400.0" spacing="10.0" styleClass="mainBox">

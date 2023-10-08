@@ -21,7 +21,7 @@ public class FileUtil {
         fileChooser.setTitle("Open Resource File");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("All Files", "*.*"));
-        List<File> selectedFile = fileChooser.showOpenMultipleDialog(SceneManager.instance.mainStage);
+        List<File> selectedFile = fileChooser.showOpenMultipleDialog(SceneManager.instance.getMainStage());
         if (selectedFile != null && !selectedFile.isEmpty()) {
             for (File file : selectedFile) {
                 FileContainer.instance.addFile(file.getCanonicalPath());

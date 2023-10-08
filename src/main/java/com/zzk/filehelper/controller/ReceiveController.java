@@ -5,12 +5,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.zzk.filehelper.state.SceneManager;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.collections.ObservableMap;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -20,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class ReceiveController {
 
@@ -43,45 +47,59 @@ public class ReceiveController {
     private Label ipLabel;
     private Label portLabel;
 
-    private Timeline showAnim;
-    private Timeline hideAnim;
+    private Timeline inTimeLine;
+    private Timeline outTimeLine;
 
-    private Parent historyMainPane;
 
-    public Timeline getShowAnim() {
-        return showAnim;
-    }
 
-    public void setShowAnim(Timeline showAnim) {
-        this.showAnim = showAnim;
-    }
-
-    public Timeline getHideAnim() {
-        return hideAnim;
-    }
-
-    public void setHideAnim(Timeline hideAnim) {
-        this.hideAnim = hideAnim;
-    }
-
-    public Parent getHistoryMainPane() {
-        return historyMainPane;
-    }
-
-    public void setHistoryMainPane(Parent historyMainPane) {
-        this.historyMainPane = historyMainPane;
-    }
 
     @FXML
-    void showHistoryWin(MouseEvent event) {
-
+    void showHistoryWin(MouseEvent event) throws IOException {
         //    展示历史记录面板
+        Node historyMainPane = SceneManager.instance.getHistortMainPane();
+        if (historyMainPane == null) {
+            // 第一次加载初始化fileDetailLayout
+            historyMainPane = initHistoryPane();
+        }
         // historyStackPane.setTranslateX(300);
         historyMainPane.setVisible(true);
-        hideAnim.stop();
-        showAnim.play();
+        outTimeLine.stop();
+        inTimeLine.play();
 
+    }
 
+    private Node initHistoryPane() throws IOException {
+        Node historyPane;
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        URL url = fxmlLoader.getClassLoader().getResource("fxml/component/history.fxml");
+        fxmlLoader.setLocation(url);
+        historyPane = fxmlLoader.load();
+        historyPane.setTranslateX(SceneManager.instance.getMainPane().getScene().getWidth());
+        historyPane.setVisible(false);
+        initAnimation(historyPane);
+        StackPane mainStackPane = (StackPane) SceneManager.instance.getMainPane().lookup("#mainStackPane");
+        mainStackPane.getChildren().add(historyPane);
+        return historyPane;
+    }
+
+    private void initAnimation(Node historyPane) {
+        inTimeLine = new Timeline(new KeyFrame(Duration.millis(300),
+                new KeyValue(historyPane.translateXProperty(), 0)));
+        outTimeLine = new Timeline(new KeyFrame(Duration.millis(300),
+                new KeyValue(historyPane.translateXProperty(), SceneManager.instance.getMainPane().getScene().getWidth())));
+        SceneManager.instance.setHistoryPane(historyPane);
+        SceneManager.instance.addAnimation("historyIn", inTimeLine);
+        SceneManager.instance.addAnimation("historyOut", outTimeLine);
+        inTimeLine.setOnFinished(e -> {
+            SceneManager.instance.getMainPane()
+                    .lookup("#masterPane").setVisible(false);
+            historyPane.setVisible(true);
+        });
+        outTimeLine.setOnFinished(e-> {
+            SceneManager.instance.getMainPane()
+                    .lookup("#masterPane").setVisible(true);
+            historyPane.setVisible(false);
+        });
     }
 
     @FXML
@@ -120,8 +138,8 @@ public class ReceiveController {
 
     @FXML
     void initialize() {
-        System.out.println("ReceiveController init...");
 
+        // logo旋转动画
         RotateTransition rt =  new RotateTransition();
         rt.setNode(logoRegion);
         rt.setFromAngle(0);
@@ -131,10 +149,8 @@ public class ReceiveController {
         rt.setOnFinished(actionEvent -> {
             rt.play();
         });
-
+        // 初始化用户设备信息
         initInfoPopup();
-        AnchorPane histortMainPane = (AnchorPane) SceneManager.instance.getHistortMainPane();
-        System.out.println("hideAnim:" +  (SceneManager.instance.getAnimation("hideAnim") == null));
     }
 
     private Stage findStage() {

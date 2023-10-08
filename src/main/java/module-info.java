@@ -10,6 +10,9 @@ open module com.zzk.filehelper {
     requires io.netty.all;
     requires com.alibaba.fastjson2;
     requires org.apache.commons.lang3;
+    requires rxcontrols;
+
     exports com.zzk.filehelper;
     exports com.zzk.filehelper.controller;
+    exports com.zzk.filehelper.controller.component;
 }
