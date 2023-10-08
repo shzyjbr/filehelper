@@ -19,7 +19,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -117,7 +116,7 @@ public class ReceiveController {
         infoPopup = new ContextMenu(new SeparatorMenuItem());
         Parent infoRoot = null;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/info.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/component/info.fxml"));
             infoRoot = fxmlLoader.load();
             ObservableMap<String, Object> namespace = fxmlLoader.getNamespace();
 

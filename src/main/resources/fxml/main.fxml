@@ -12,12 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane fx:id="mainStackPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.MainController">
+<StackPane fx:id="mainStackPane" minHeight="200.0" minWidth="200.0" stylesheets="@../css/mainPane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.MainController">
    <children>
-      <BorderPane fx:id="masterPane" prefHeight="660.0" prefWidth="880.0" style="-fx-background-color: white;" stylesheets="@../css/mainPane.css">
+      <BorderPane fx:id="masterPane" prefHeight="660.0" prefWidth="880.0" style="-fx-background-color: white;">
           <center>
-            <RXCarousel fx:id="mainCarousel" arrowDisplayMode="HIDE" autoSwitch="false" hoverPause="false" navDisplayMode="HIDE" prefHeight="660.0" prefWidth="660.0" style="-fx-border-width: 0;" styleClass="main-pane" />
+            <RXCarousel fx:id="mainCarousel" animationTime="300.0ms" arrowDisplayMode="HIDE" autoSwitch="false" hoverPause="false" navDisplayMode="HIDE" prefHeight="660.0" prefWidth="660.0" showTime="300.0ms" style="-fx-border-width: 0;" styleClass="main-pane" />
           </center>
          <left>
                   <AnchorPane id="left-main-pane" styleClass="left-main-pane" BorderPane.alignment="CENTER">

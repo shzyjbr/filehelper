@@ -32,6 +32,9 @@ import java.util.Objects;
 
 public class HelperApplication extends Application {
 
+    private static final double MIN_WIDTH = 400; // 最小宽度
+    private static final double MIN_HEIGHT = 300; // 最小高度
+
     private double offsetX, offsetY;
     private Scene scene;
 
@@ -51,6 +54,8 @@ public class HelperApplication extends Application {
 
         scene = new Scene(root, null);
         primaryStage.setScene(scene);
+        primaryStage.setMinWidth(MIN_WIDTH);
+        primaryStage.setMinHeight(MIN_HEIGHT);
         primaryStage.setFullScreenExitHint("");
         primaryStage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResource("/img/logo.png")).toExternalForm()));
         primaryStage.setTitle("文件传输助手");

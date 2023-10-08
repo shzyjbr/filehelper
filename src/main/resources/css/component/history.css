@@ -2,7 +2,9 @@
     -fx-background-color: white;
 }
 
-
+.topBar {
+    -fx-background-color: white;
+}
 .backStackPane {
     -fx-background-radius: 20px;
 }
@@ -16,8 +18,9 @@
 
 .list-view {
     -fx-font-size: 14;
-    -fx-focus-color: #0000;
-    -fx-faint-focus-color: #0000;
+    -fx-focus-color: white;
+    -fx-faint-focus-color: white;
+    -fx-border-width: 0;
 }
 
 

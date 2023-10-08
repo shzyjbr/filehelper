@@ -1,36 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.leewyatt.rxcontrols.controls.RXTranslationButton?>
+<?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefWidth="660.0" style="-fx-border-width: 0;" styleClass="receice-main-bg" stylesheets="@../css/receive.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.ReceiveController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-border-width: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-border-width: 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <children>
-            <AnchorPane prefHeight="60.0" prefWidth="600.0">
-               <children>
-                  <StackPane fx:id="infoStackPane" layoutX="556.0" layoutY="5.0" onMouseReleased="#showInfo" prefHeight="36.0" prefWidth="36.0" styleClass="infoStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="25.0">
-                     <children>
-                        <Region maxHeight="20.0" maxWidth="20.0" prefHeight="20.0" prefWidth="20.0" />
-                     </children>
-                  </StackPane>
-                  <StackPane fx:id="historyStackPane" layoutX="566.0" layoutY="15.0" onMouseReleased="#showHistoryWin" prefHeight="36.0" prefWidth="36.0" styleClass="recordStackPane" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="60.0">
-                     <children>
-                        <Region maxHeight="18.0" maxWidth="18.0" prefHeight="18.0" prefWidth="18.0" />
-                     </children>
-                  </StackPane>
-               </children>
-               <VBox.margin>
-                  <Insets top="15.0" />
-               </VBox.margin>
-            </AnchorPane>
             <StackPane maxHeight="150.0" maxWidth="150.0" minHeight="150.0" minWidth="150.0" prefHeight="150.0" prefWidth="150.0" styleClass="logoStackPane">
                <children>
                   <Region fx:id="logoRegion" maxHeight="150.0" maxWidth="150.0" minHeight="150.0" minWidth="150.0" prefHeight="150.0" prefWidth="150.0" styleClass="logoRegion" />
@@ -52,6 +37,28 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
+            <HBox alignment="CENTER" spacing="30.0">
+               <children>
+                  <RXTranslationButton maxHeight="30.0" maxWidth="119.0" minHeight="30.0" onMouseClicked="#showHistoryWin" prefHeight="30.0" prefWidth="119.0" text="文件历史">
+                     <graphic>
+                        <Region prefHeight="200.0" prefWidth="200.0" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="rx-btn" />
+                        <String fx:value="history-btn" />
+                     </styleClass>
+                  </RXTranslationButton>
+                  <RXTranslationButton maxHeight="30.0" maxWidth="119.0" minHeight="30.0" prefHeight="30.0" prefWidth="119.0" text="设备信息">
+                     <graphic>
+                        <Region prefHeight="200.0" prefWidth="200.0" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="rx-btn" />
+                        <String fx:value="info-btn" />
+                     </styleClass>
+                  </RXTranslationButton>
+               </children>
+            </HBox>
             <Button maxHeight="30.0" maxWidth="120.0" minHeight="30.0" minWidth="120.0" mnemonicParsing="false" styleClass="quickSaveBtn" text="快速保存：开">
                <font>
                   <Font size="13.0" />
