@@ -1,5 +1,6 @@
 package com.zzk.filehelper.handler;
 
+import com.zzk.filehelper.config.ClientConfig;
 import com.zzk.filehelper.netty.message.*;
 import com.zzk.filehelper.network.NetworkConfig;
 import com.zzk.filehelper.serialize.Serializer;

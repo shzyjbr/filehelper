@@ -6,9 +6,13 @@ import com.zzk.filehelper.event.OptionRequestEvent;
 import com.zzk.filehelper.event.manager.UIManager;
 import com.zzk.filehelper.handler.ServerStatusHandler;
 import com.zzk.filehelper.netty.FileServer;
+import com.zzk.filehelper.netty.StatusServer;
 import com.zzk.filehelper.netty.message.MessageConfig;
 import com.zzk.filehelper.netty.message.OfflineMessage;
+import com.zzk.filehelper.netty.message.OnlineRequestMessage;
 import com.zzk.filehelper.netty.message.OptionRequestMessage;
+import com.zzk.filehelper.netty.protocol.SequenceIdGenerator;
+import com.zzk.filehelper.network.IpUtil;
 import com.zzk.filehelper.network.NetworkConfig;
 import com.zzk.filehelper.serialize.Serializer;
 import com.zzk.filehelper.state.SceneManager;
@@ -20,6 +24,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.nio.NioDatagramChannel;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -28,6 +33,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.SocketException;
 import java.util.Objects;
 
 public class HelperApplication extends Application {
@@ -38,20 +44,16 @@ public class HelperApplication extends Application {
     private double offsetX, offsetY;
     private Scene scene;
 
-    private EventLoopGroup statusGroup;
-    private Bootstrap statusBootstrap;
-
-    private Channel statusChannel;
 
     private FileServer fileServer;
+    private StatusServer statusServer;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
 
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/main.fxml"));
-
-
+        
         scene = new Scene(root, null);
         primaryStage.setScene(scene);
         primaryStage.setMinWidth(MIN_WIDTH);
@@ -70,7 +72,8 @@ public class HelperApplication extends Application {
     public void init() throws Exception {
         super.init();
         System.out.println("启动状态服务器中...");
-        startStatusServer();
+        statusServer = new StatusServer();
+        statusServer.run(NetworkConfig.REGISTER_PORT);
         System.out.println("启动文件监听服务器中...");
         fileServer = new FileServer();
         fileServer.run(NetworkConfig.FILE_PORT);
@@ -81,15 +84,13 @@ public class HelperApplication extends Application {
     public void stop() throws Exception {
         super.stop();
         System.out.println("关闭资源中...");
-        offline();
-//        清理资源
-        if (statusChannel != null) {
-            statusChannel.close().sync();
-        }
-        if (statusGroup != null) {
-            statusGroup.shutdownGracefully().sync();
-        }
+        // 广播一条下线消息,关闭状态服务器
+        statusServer.shutdown();
+        // 关闭文件监听服务器
         fileServer.shutdown();
+        System.out.println("关闭资源成功");
+        Platform.exit();
+
 
     }
 
@@ -99,52 +100,6 @@ public class HelperApplication extends Application {
         launch();
     }
 
-
-    private void startStatusServer() {
-        statusGroup = new NioEventLoopGroup();
-        try {
-            statusBootstrap = new Bootstrap();
-            statusBootstrap.group(statusGroup)
-                    // 主线程处理
-                    .channel(NioDatagramChannel.class)
-                    // 广播
-                    .option(ChannelOption.SO_BROADCAST, true)
-                    .handler(new ChannelInitializer<NioDatagramChannel>() {
-
-                        @Override
-                        protected void initChannel(NioDatagramChannel ch) {
-                            ChannelPipeline pipeline = ch.pipeline();
-                            pipeline
-                                    .addLast(new ServerStatusHandler());
-                        }
-                    });
-            statusChannel = statusBootstrap.bind(NetworkConfig.REGISTER_PORT).sync().channel();
-            System.out.println("状态服务器已启动，正在监听端口：" + NetworkConfig.REGISTER_PORT);
-            // 这里不能出现阻塞当前线程的操作，否则无法调出JavaFX主窗口
-        } catch (InterruptedException e) {
-            System.out.println("状态服务器启动异常，开始关闭客户端...");
-            System.exit(-1);
-        }
-    }
-
-    private void offline() {
-        OfflineMessage offlineMessage = new OfflineMessage();
-        offlineMessage.setIp("192.168.0.1");
-        offlineMessage.setPort(8088);
-        Serializer serializer = Serializer.getByCode(Serializer.JSON_SERIALIZER);
-        byte[] serialize = serializer.serialize(offlineMessage);
-
-        try {
-            ByteBuf buf1 = Unpooled.buffer(1);
-            buf1.writeByte(MessageConfig.OFFLINE_MESSAGE);
-            statusChannel.writeAndFlush(new DatagramPacket(
-                    Unpooled.copiedBuffer(buf1, Unpooled.copiedBuffer(serialize)),
-                    new InetSocketAddress("127.0.0.1", 8088))).sync();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        }
-    }
 
     @Subscribe
     private void handleEvent(OptionRequestMessage optionRequestEvent) {
