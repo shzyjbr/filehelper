@@ -1,7 +1,6 @@
 package com.zzk.filehelper.network;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.net.*;
 import java.util.ArrayList;
@@ -29,9 +28,6 @@ public class IpUtil {
 
         // 所有网络接口信息
         Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
-        if (ObjectUtils.isEmpty(networkInterfaces)) {
-            return addresses;
-        }
         while (networkInterfaces.hasMoreElements()) {
             NetworkInterface networkInterface = networkInterfaces.nextElement();
             //滤回环网卡、点对点网卡、非活动网卡、虚拟网卡并要求网卡名字是eth或ens开头

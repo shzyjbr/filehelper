@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="fileDetailPane" stylesheets="@../../css/component/fileDetail.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.component.FileDetailController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="fileDetailPane" stylesheets="@../../css/component/fileDetail.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.component.FileDetailController">
    <children>
       <StackPane onMouseClicked="#goBackToMain" prefHeight="30.0" prefWidth="30.0" styleClass="back-stackPane" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="5.0">
          <children>

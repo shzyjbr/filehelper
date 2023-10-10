@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="mainStackPane" minHeight="200.0" minWidth="200.0" stylesheets="@../css/mainPane.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.MainController">
+<StackPane fx:id="mainStackPane" minHeight="200.0" minWidth="200.0" stylesheets="@../css/mainPane.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.zzk.filehelper.controller.MainController">
    <children>
       <BorderPane fx:id="masterPane" prefHeight="660.0" prefWidth="880.0" style="-fx-background-color: white;">
           <center>

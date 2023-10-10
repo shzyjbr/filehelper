@@ -21,8 +21,6 @@ public interface Serializer {
 
     static Serializer getByCode(int code) {
         switch (code) {
-            case HESSIAN_SERIALIZER:
-                return new HessianSerializer();
             case JSON_SERIALIZER:
                 return new JsonSerializer();
 

@@ -15,7 +15,6 @@ public class SerializerFactory {
 
     static {
         serializerMap.put(Serializer.JSON_SERIALIZER, new JsonSerializer());
-        serializerMap.put(Serializer.HESSIAN_SERIALIZER, new HessianSerializer());
     }
 
     public static Serializer getSerializer(int code) {
