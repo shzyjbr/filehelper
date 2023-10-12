@@ -8,13 +8,15 @@
     <name>filehelper</name>
     <description>filehelper</description>
     <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.8.2</junit.version>
     </properties>
 
     <dependencies>
-<!--        UI -->
+        <!--        UI -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
@@ -57,24 +59,24 @@
             <artifactId>fastjson2</artifactId>
             <version>2.0.41</version>
         </dependency>
-<!--工具类，其中还有事件发布订阅功能-->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>32.1.2-jre</version>
-        </dependency>
-<!--通信-->
+        <!--工具类，其中还有事件发布订阅功能-->
+        <!--        <dependency>-->
+        <!--            <groupId>com.google.guava</groupId>-->
+        <!--            <artifactId>guava</artifactId>-->
+        <!--            <version>32.1.2-jre</version>-->
+        <!--        </dependency>-->
+        <!--通信-->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.99.Final</version>
+            <version>4.1.48.Final</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.commons</groupId>-->
-<!--            <artifactId>commons-lang3</artifactId>-->
-<!--            <version>3.13.0</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.commons</groupId>-->
+        <!--            <artifactId>commons-lang3</artifactId>-->
+        <!--            <version>3.13.0</version>-->
+        <!--        </dependency>-->
     </dependencies>
     <repositories>
         <repository>
@@ -105,16 +107,17 @@
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
-
                 <executions>
                     <execution>
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
+
                         <configuration>
                             <mainClass>com.zzk.filehelper/com.zzk.filehelper.HelperApplication</mainClass>
-                            <launcher>app</launcher>
-                            <jlinkZipName>app</jlinkZipName>
-                            <jlinkImageName>app</jlinkImageName>
+                            <launcher>FileHelper</launcher>
+                            <compress>2</compress>
+                            <jlinkZipName>sample-zip</jlinkZipName>
+                            <jlinkImageName>build-link</jlinkImageName>
                             <noManPages>true</noManPages>
                             <stripDebug>true</stripDebug>
                             <noHeaderFiles>true</noHeaderFiles>

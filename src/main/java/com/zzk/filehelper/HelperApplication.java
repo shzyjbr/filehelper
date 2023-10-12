@@ -1,7 +1,5 @@
 package com.zzk.filehelper;
 
-import com.google.common.eventbus.Subscribe;
-import com.zzk.filehelper.event.EventCenter;
 import com.zzk.filehelper.event.OptionRequestEvent;
 import com.zzk.filehelper.event.manager.UIManager;
 import com.zzk.filehelper.handler.ServerStatusHandler;
@@ -77,7 +75,6 @@ public class HelperApplication extends Application {
         System.out.println("启动文件监听服务器中...");
         fileServer = new FileServer();
         fileServer.run(NetworkConfig.FILE_PORT);
-        EventCenter.register(this);
     }
 
     @Override
@@ -101,9 +98,9 @@ public class HelperApplication extends Application {
     }
 
 
-    @Subscribe
-    private void handleEvent(OptionRequestMessage optionRequestEvent) {
-        System.out.println("UIManager收到事件：" + optionRequestEvent);
-        System.out.println(Thread.currentThread().getName());
-    }
+//    @Subscribe
+//    private void handleEvent(OptionRequestMessage optionRequestEvent) {
+//        System.out.println("UIManager收到事件：" + optionRequestEvent);
+//        System.out.println(Thread.currentThread().getName());
+//    }
 }

@@ -1,10 +1,8 @@
 package com.zzk.filehelper.controller;
 
-import com.google.common.eventbus.Subscribe;
 import com.zzk.filehelper.component.FileAttachStackPane;
 import com.zzk.filehelper.component.MyHbox;
 import com.zzk.filehelper.component.ThumbnailCell;
-import com.zzk.filehelper.event.EventCenter;
 import com.zzk.filehelper.event.ShowSelectedFilesEvent;
 import com.zzk.filehelper.state.FileContainer;
 import com.zzk.filehelper.state.SceneManager;
@@ -64,7 +62,6 @@ public class SendController {
     private Timeline outTimeLine;
 
     public SendController() {
-        EventCenter.register(this);
     }
 
     /**

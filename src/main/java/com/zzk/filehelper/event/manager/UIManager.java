@@ -1,6 +1,5 @@
 package com.zzk.filehelper.event.manager;
 
-import com.google.common.eventbus.Subscribe;
 import com.zzk.filehelper.netty.message.OptionRequestMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;

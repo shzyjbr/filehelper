@@ -1,6 +1,5 @@
 package com.zzk.filehelper.controller.component;
 
-import com.google.common.eventbus.Subscribe;
 import com.zzk.filehelper.component.CustomListCell;
 import com.zzk.filehelper.component.MyHbox;
 import com.zzk.filehelper.event.UpdateFileListViewEvent;
