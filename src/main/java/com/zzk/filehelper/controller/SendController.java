@@ -1,9 +1,8 @@
 package com.zzk.filehelper.controller;
 
-import com.zzk.filehelper.component.FileAttachStackPane;
-import com.zzk.filehelper.component.MyHbox;
-import com.zzk.filehelper.component.ThumbnailCell;
+import com.zzk.filehelper.component.*;
 import com.zzk.filehelper.event.ShowSelectedFilesEvent;
+import com.zzk.filehelper.state.DeviceManager;
 import com.zzk.filehelper.state.FileContainer;
 import com.zzk.filehelper.state.SceneManager;
 import com.zzk.filehelper.util.FileUtil;
@@ -42,6 +41,8 @@ import java.util.List;
  */
 public class SendController {
 
+    @FXML
+    private VBox deviceVBox;
 
     @FXML
     private Label fileCount;
@@ -84,8 +85,41 @@ public class SendController {
                 selectedResources.setVisible(true);
             }
         });
-        // 更新缩略图UI
-        // 监听ObservableList的变化
+        // 监听DeviveManager的变化
+        ListChangeListener<String> deviceChangeListener = change -> {
+            while (change.next()) {
+                // 处理新增设备
+                if (change.wasAdded()) {
+                    for (String device : change.getAddedSubList()) {
+                        DeviceCell deviceCell = new DeviceCell(device);
+                        if (DeviceCellLine.newLine) {
+                            HBox hBox = new HBox(deviceCell);
+                            hBox.setSpacing(25);
+                            deviceVBox.getChildren().add(hBox);
+                            DeviceCellLine.current = hBox;
+                            DeviceCellLine.newLine = false;
+                        } else {
+                            DeviceCellLine.current.getChildren().add(deviceCell);
+                            DeviceCellLine.newLine = true;
+                        }
+                    }
+                }
+                // 处理删除设备
+                if (change.wasRemoved()) {
+                    for (String removedItem : change.getRemoved()) {
+                        for (Node pane : deviceVBox.getChildren()) {
+                            DeviceCell deviceCell =(DeviceCell)pane;
+                            if (deviceCell.getLabel().getText().equals(removedItem)) {
+                                deviceVBox.getChildren().remove(pane);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        };
+        DeviceManager.getInstance().getDeviceList().addListener(deviceChangeListener);
+        // 监听已选择文件的变化来更新缩略图UI
         ListChangeListener<String> listChangeListener = change -> {
             while (change.next()) {
                 if (change.wasAdded()) {
@@ -115,6 +149,10 @@ public class SendController {
     @FXML
     void openFileChooserDialog(MouseEvent event) throws IOException {
         FileUtil.showFileChooserDialog();
+        DeviceManager.getInstance().getDeviceList().add("192.168.1.113");
+        DeviceManager.getInstance().getDeviceList().add("192.168.1.114");
+        DeviceManager.getInstance().getDeviceList().add("192.168.1.115");
+        DeviceManager.getInstance().getDeviceList().add("192.168.1.116");
     }
 
 

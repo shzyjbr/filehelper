@@ -1,7 +1,6 @@
 package com.zzk.filehelper.event;
 
-import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
+
 
 /**
  * @Author kelton
@@ -14,8 +13,10 @@ public class EventTest {
     public static void main(String[] args) {
         eventBus.register(new RegisterA());
         eventBus.register(new RegisterB());
+        eventBus.register(new RegisterC());
         eventBus.post("hello");
         eventBus.post(111);
+        eventBus.post(new UpdateFileListViewEvent());
 
 
     }
@@ -30,6 +31,13 @@ public class EventTest {
         @Subscribe
         public void handle(Integer msg) {
             System.out.println("B: " + msg);
+        }
+    }
+
+    public static class RegisterC {
+        @Subscribe
+        public void handle(UpdateFileListViewEvent msg) {
+            System.out.println("C: " + msg.getClass().getName());
         }
     }
 

@@ -2,10 +2,10 @@ package com.zzk.filehelper.state;
 
 import com.zzk.filehelper.config.ClientConfig;
 import com.zzk.filehelper.network.IpUtil;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
-import java.net.InetAddress;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.HashMap;
 
 /**
@@ -23,14 +23,17 @@ import java.util.HashMap;
  */
 public class DeviceManager {
 
-    private HashMap<String, ClientConfig> devices;
+    private HashMap<String, ClientConfig> deviceMap;
+
+    private ObservableList<String> deviceList;
 
     private String localIP;
 
     private static DeviceManager instance = new DeviceManager();
 
     private DeviceManager() {
-        this.devices = new HashMap<>();
+        this.deviceMap = new HashMap<>();
+        this.deviceList = FXCollections.observableArrayList();
         try {
             this.localIP = IpUtil.getLocalIp4Address();
         } catch (SocketException e) {
@@ -50,30 +53,41 @@ public class DeviceManager {
     public void addDevice(String ip, int port) {
         if (!ip.equals(getLocalIP())) {
             // todo 目前还没实现自动保存相关功能
-            this.devices.put(ip, new ClientConfig(ip, port, false));
+            this.deviceMap.put(ip, new ClientConfig(ip, port, false));
+            this.deviceList.add(ip);
         }
         // 打印当前的客户端记录信息
-        this.devices.forEach((String device, ClientConfig cfg) -> System.out.println(device + "::::" + cfg));
+        this.deviceMap.forEach((String device, ClientConfig cfg) -> System.out.println(device + "::::" + cfg));
     }
 
     public void removeDevice(String ip) {
-        devices.remove(ip);
+        deviceMap.remove(ip);
+        deviceList.remove(ip);
     }
 
     public void clearDevice() {
-        this.devices.clear();
+        this.deviceMap.clear();
+        this.deviceList.clear();
     }
 
     public boolean updateDevice(String deviceName, ClientConfig config) {
-        if (!this.devices.containsKey(deviceName)) {
+        if (!this.deviceMap.containsKey(deviceName)) {
             return false;
         }
-        this.devices.put(deviceName, config);
+        this.deviceMap.put(deviceName, config);
         return true;
     }
 
-    public HashMap<String, ClientConfig> getDevices() {
-        return this.devices;
+    public HashMap<String, ClientConfig> getDeviceMap() {
+        return this.deviceMap;
+    }
+
+    public ObservableList<String> getDeviceList() {
+        return deviceList;
+    }
+
+    public void setDeviceList(ObservableList<String> deviceList) {
+        this.deviceList = deviceList;
     }
 
     public String getLocalIP() {
@@ -81,6 +95,6 @@ public class DeviceManager {
     }
 
     public boolean hasDevice(String device) {
-        return this.devices.containsKey(device);
+        return this.deviceMap.containsKey(device);
     }
 }
